@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.epicot_h{
+    background-color: #2a2a2a;
+}
+.shieldLogo{
+    width: 52px;
+    height: 52px;
+}
+.rightNav{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.bg-color{
+    height: 3.7em;
+    max-height: 3.7em;
+    background-color: #2a2a2a;
+}
+.bar-bg{
+    background: rgb(42, 42, 42);
+}
+.border-left{
+    border-left: 1px solid rgb(204, 204, 204);
+}
+.text-gray-500{
+    color: rgb(204, 204, 204);
+}
+.nav-item:hover{
+    color: #464646;
+    border-bottom: 2px solid #3c3cf1;
+}
+.eg-sliderCarousel{
+    background-color: #000;
+    overflow: hidden;
+    position: relative;
+}
+.carousel-item{
+    height: 92vh;
+}
