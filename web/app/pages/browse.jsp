@@ -12,7 +12,7 @@
 <div id="top" class="search w">
 
     <div class="search_input">
-        <input type="" name="" placeholder="探索商城">
+        <input type="text" name="" placeholder="探索商城">
     </div>
 
     <div class="search_tab">
