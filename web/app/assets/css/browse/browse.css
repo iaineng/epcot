@@ -95,6 +95,7 @@ a {
 .cat_list .swiper-wrapper {
     display: flex;
     width: 100%;
+    height: auto;
 }
 .cat_item {
     width: 270px!important;
