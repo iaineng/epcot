@@ -27,10 +27,10 @@
             </div>
         </div>
         <div class="collapse navbar-collapse rightNav">
-            <div class="navbar-nav">
-                <a class="text-gray-500 nav-link text-white-50 mx-2 language" href="#"><i class="bi bi-globe-americas"></i></a>
-                <a class="text-gray-500 mx-2 nav-link" href="#"><i class="bi bi-person"></i>登录</a>
-                <a class="btn btn-primary text-gray-500 mx-2 nav-link h-100" href="#">获取客户端</a>
+            <div class="navbar-nav align-items-center">
+                <a class="nav-link text-gray-500 text-white-50 mx-2 language" href="#"><i class="bi bi-globe-americas"></i></a>
+                <a class="mx-2 nav-link text-gray-500" href="#"><i class="bi bi-person"></i>登录</a>
+                <a class="btn btn-primary mx-2 nav-link text-gray-500 h-100" href="#">获取客户端</a>
             </div>
         </div>
     </nav>
