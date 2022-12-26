@@ -2,18 +2,18 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/home.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/discover/discover.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/discover/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <script src="${pageContext.request.contextPath}/app/assets/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/app/assets/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/app/assets/js/discover/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/app/assets/js/discover/bootstrap.min.js"></script>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg bar-bg">
         <div class="shieldLogo p-1">
             <a class="navbar-brand" href="#">
-                <img src="${pageContext.request.contextPath}/app/assets/images/logo.png" width="36" height="36" class="d-inline-block align-items-center" alt="">
+                <img src="${pageContext.request.contextPath}/app/assets/images/discover/logo.png" width="36" height="36" class="d-inline-block align-items-center" alt="">
             </a>
         </div>
         <div class="collapse navbar-collapse align-items-center">
@@ -40,25 +40,25 @@
         <div id="slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_1.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_1.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_2.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_2.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_3.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_3.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_4.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_4.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_5.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_5.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_6.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_6.jpg" class="d-block w-100">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/carousel_7.jpg" class="d-block w-100">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_7.jpg" class="d-block w-100">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
