@@ -29,7 +29,7 @@ a {
     height: 40px;
     padding-left: 40px;
     box-sizing: border-box;
-    background: url(../../images/home2/search.png) no-repeat left 10px center;
+    background: url(../../images/browse/search.png) no-repeat left 10px center;
     background-size: 20px;
     display: flex;
     align-items: center;
@@ -176,7 +176,7 @@ a {
 }
 .prolist_left_tit::after {
     content: '';
-    background: url(../../images/home2/bottom_white.png) no-repeat right center;
+    background: url(../../images/browse/bottom_white.png) no-repeat right center;
     background-size: 10px auto;
     display: inline-block;
     width: 10px;
@@ -187,7 +187,7 @@ a {
 .prolist_left_tit:focus::after {
     transform: rotate(180deg);
     transition: transform 0.3s;
-    background: url(../../images/home2/bottom_white.png) no-repeat right center;
+    background: url(../../images/browse/bottom_white.png) no-repeat right center;
     background-size: 10px auto;
 }
 .prolist_sub {
@@ -334,14 +334,14 @@ a {
     color: #fff;
 }
 .next {
-    background: url(../../images/home2/right_a9.png) no-repeat center center;
+    background: url(../../images/browse/right_a9.png) no-repeat center center;
     display: inline-block;
     width: 16px;
     height: 16px;
     background-size: 16px 16px;
 }
 .next:hover {
-    background-image: url(../../images/home2/right.png);
+    background-image: url(../../images/browse/right.png);
 }
 .prolist_right {
     width: 245px;
@@ -377,7 +377,7 @@ a {
 }
 .prolist_right_list li::after {
     content: '';
-    background: url(../../images/home2/bottom.png) no-repeat right center;
+    background: url(../../images/browse/bottom.png) no-repeat right center;
     background-size: 15px auto;
     display: inline-block;
     width: 15px;
@@ -392,7 +392,7 @@ a {
 .prolist_right_list li.focus::after {
     transform: rotate(180deg);
     transition: transform 0.3s;
-    background: url(../../images/home2/bottom_white.png) no-repeat right center;
+    background: url(../../images/browse/bottom_white.png) no-repeat right center;
     background-size: 15px auto;
 }
 .prolist_right_list li.sub {
@@ -417,7 +417,7 @@ a {
 .prolist_right_list li.sub > div.focus {
     color: #fff;
     border-radius: 3px;
-    background: #2a2a2a url(../../images/home2/gou.png) no-repeat right 5px center;
+    background: #2a2a2a url(../../images/browse/gou.png) no-repeat right 5px center;
     background-size: 15px 15px;
 }
 .prolist_right_list li.sub > div.focus a {

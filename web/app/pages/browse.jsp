@@ -1520,8 +1520,8 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/app/assets/js/swiper2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/app/assets/js/jquery-2.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/app/assets/js/browse/swiper2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
     $('.proadd').hover(function(){
         $(this).closest('.proitem').find('.protask').toggle();
