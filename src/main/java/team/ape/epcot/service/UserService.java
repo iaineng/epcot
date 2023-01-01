@@ -7,7 +7,7 @@ import team.ape.epcot.vo.UserRegisterVo;
 
 import java.sql.SQLException;
 
-public class UserService extends BaseService {
+public class UserService extends Service {
     private final UserDao userDao = new UserDao();
 
     public UserRegisterVo register(UserRegisterParameterDto param) throws SQLException {
