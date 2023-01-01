@@ -9,8 +9,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameDao extends BaseDao {
-    public GamePo getGameById(long id) throws SQLException {
+public class GameDao extends Dao<GamePo> {
+    public GameDao() {
+        super(GamePo.class);
+    }
+
+    public GamePo getById(long id) throws SQLException {
         String sql = "SELECT * FROM tb_game WHERE id = ? AND deleted_at IS NULL";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -18,7 +22,7 @@ public class GameDao extends BaseDao {
         }
     }
 
-    public GamePo getGameByTitle(String title) throws SQLException {
+    public GamePo getByTitle(String title) throws SQLException {
         String sql = "SELECT * FROM tb_game WHERE title = ? AND deleted_at IS NULL";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, title);
@@ -26,7 +30,7 @@ public class GameDao extends BaseDao {
         }
     }
 
-    public List<GamePo> searchGameByTitle(String title) throws SQLException {
+    public List<GamePo> searchByTitle(String title) throws SQLException {
         String sql = "SELECT * FROM tb_game WHERE title LIKE ? AND deleted_at IS NULL";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, "%" + title + "%");
@@ -34,19 +38,19 @@ public class GameDao extends BaseDao {
         }
     }
 
-    public List<GamePo> getAllGames() throws SQLException {
+    public List<GamePo> getAll() throws SQLException {
         String sql = "SELECT * FROM tb_game WHERE deleted_at IS NULL";
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
             List<GamePo> games = new ArrayList<>();
             while (resultSet.next()) {
-                games.add(extractGame(resultSet));
+                games.add(extract(resultSet));
             }
             return games;
         }
     }
 
-    public int insertGame(GamePo game) throws SQLException {
+    public int insert(GamePo game) throws SQLException {
         String sql = "INSERT INTO tb_game (title, description, cover_urls, download_link, price, created_at, tags, platforms, reviews, marks, developer, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             applyGame(game, statement);
@@ -55,7 +59,7 @@ public class GameDao extends BaseDao {
         }
     }
 
-    public void updateGame(GamePo game) throws SQLException {
+    public void update(GamePo game) throws SQLException {
         String sql = "UPDATE tb_game SET title = ?, description = ?, cover_urls = ?, download_link = ?, price = ?, tags = ?, platforms = ?, reviews = ?, marks = ?, developer = ?, publisher = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             applyGame(game, statement);
@@ -64,7 +68,7 @@ public class GameDao extends BaseDao {
         }
     }
 
-    public void deleteGame(long id) throws SQLException {
+    public void delete(long id) throws SQLException {
         String sql = "UPDATE tb_game SET deleted_at = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
@@ -90,35 +94,16 @@ public class GameDao extends BaseDao {
     private GamePo extractGame(PreparedStatement statement) throws SQLException {
         try (ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
-                return extractGame(resultSet);
+                return extract(resultSet);
             }
             return null;
         }
     }
 
-    private GamePo extractGame(ResultSet resultSet) throws SQLException {
-        GamePo game = new GamePo();
-        game.setId(resultSet.getLong("id"));
-        game.setTitle(resultSet.getString("title"));
-        game.setDescription(resultSet.getString("description"));
-        game.setCoverUrls(resultSet.getString("cover_urls"));
-        game.setDownloadLink(resultSet.getString("download_link"));
-        game.setPrice(resultSet.getBigDecimal("price"));
-        game.setCreatedAt(resultSet.getTimestamp("created_at"));
-        game.setDeletedAt(resultSet.getTimestamp("deleted_at"));
-        game.setTags(resultSet.getString("tags"));
-        game.setPlatforms(resultSet.getString("platforms"));
-        game.setReviews(resultSet.getString("reviews"));
-        game.setMarks(resultSet.getString("marks"));
-        game.setDeveloper(resultSet.getString("developer"));
-        game.setPublisher(resultSet.getString("publisher"));
-        return game;
-    }
-
     private List<GamePo> extractGames(ResultSet resultSet) throws SQLException {
         List<GamePo> games = new ArrayList<>();
         while (resultSet.next()) {
-            games.add(extractGame(resultSet));
+            games.add(extract(resultSet));
         }
         return games;
     }

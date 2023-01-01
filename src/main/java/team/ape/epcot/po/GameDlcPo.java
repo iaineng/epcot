@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 public class GameDlcPo {
     private long id;
+    @Col(name = "fr_game_id")
     private long gameId;
     private String title;
     private String description;
