@@ -41,28 +41,17 @@ public class UserDao extends BaseDao {
     public int insertUser(UserPo user) throws SQLException {
         String sql = "INSERT INTO tb_user (username, nickname, password, email, avatar_url, address, birthday, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getNickname());
-            statement.setString(3, user.getPassword());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getAvatarUrl());
-            statement.setString(6, user.getAddress());
-            statement.setTimestamp(7, new Timestamp(user.getBirthday().getTime()));
+            applyUser(user, statement);
             statement.setTimestamp(8, new Timestamp(user.getCreatedAt().getTime()));
             return statement.executeUpdate();
         }
     }
 
     public void updateUser(UserPo user) throws SQLException {
-        String sql = "UPDATE tb_user SET nickname = ?, password = ?, email = ?, avatar_url = ?, address = ?, birthday = ? WHERE id = ?";
+        String sql = "UPDATE tb_user SET username = ?, nickname = ?, password = ?, email = ?, avatar_url = ?, address = ?, birthday = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, user.getNickname());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getAvatarUrl());
-            statement.setString(5, user.getAddress());
-            statement.setTimestamp(6, new Timestamp(user.getBirthday().getTime()));
-            statement.setLong(7, user.getId());
+            applyUser(user, statement);
+            statement.setLong(8, user.getId());
             statement.executeUpdate();
         }
     }
@@ -74,6 +63,16 @@ public class UserDao extends BaseDao {
             statement.setLong(2, id);
             statement.executeUpdate();
         }
+    }
+
+    private void applyUser(UserPo user, PreparedStatement statement) throws SQLException {
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getNickname());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, user.getEmail());
+        statement.setString(5, user.getAvatarUrl());
+        statement.setString(6, user.getAddress());
+        statement.setTimestamp(7, new Timestamp(user.getBirthday().getTime()));
     }
 
     private UserPo extractUser(PreparedStatement statement) throws SQLException {

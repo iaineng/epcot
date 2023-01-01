@@ -12,8 +12,8 @@ public class GamePo {
     private long id;
     private String title;
     private String description;
-    private String cover_urls;
-    private String download_link;
+    private String coverUrls;
+    private String downloadLink;
     private BigDecimal price;
     private String developer;
     private String publisher;

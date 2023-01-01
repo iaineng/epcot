@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>游戏详情页面</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/browse/detail1.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/browse/swiper.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/detail_dlc.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/swiper.css">
 </head>
 <body>
 <div id="top" class="search w">
@@ -35,8 +35,8 @@
     </div>
 
     <div class="tab_list">
-        <a href="${pageContext.request.contextPath}/app/pages/detail.jsp">概览</a>
-        <a href="${pageContext.request.contextPath}/app/pages/detail1.jsp" class="on">附加内容</a>
+        <a href="${pageContext.request.contextPath}/game/detail">概览</a>
+        <a href="${pageContext.request.contextPath}/game/detail/dlc" class="on">附加内容</a>
     </div>
 </div>
 
@@ -70,7 +70,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c1.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c1.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -96,7 +96,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c2.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c2.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -120,7 +120,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c3.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c3.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -144,7 +144,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c4.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c4.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -170,7 +170,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c5.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c5.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -193,7 +193,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c6.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c6.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -217,7 +217,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c7.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c7.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -241,7 +241,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c8.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c8.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -265,7 +265,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c9.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c9.jpg">
                     </div>
                     <div class="property">
                         附加内容
@@ -293,7 +293,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c10.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c10.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -321,7 +321,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c11.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c11.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -349,7 +349,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c12.jfif">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c12.jfif">
                     </div>
                     <div class="protype">
                         附加内容
@@ -377,7 +377,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c13.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c13.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -405,7 +405,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c14.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c14.jpg">
                     </div>
                     <div class="protype">
                         附加内容
@@ -429,7 +429,7 @@
                             <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
                         </div>
                         <div class="proimg_bg"></div>
-                        <img src="${pageContext.request.contextPath}/app/assets/images/detail1/c15.jpg">
+                        <img src="${pageContext.request.contextPath}/app/assets/images/detail_dlc/c15.jpg">
                     </div>
                     <div class="protype">
                         附加内容

@@ -3,6 +3,7 @@ package team.ape.epcot.dao;
 import team.ape.epcot.dbc.ConnectionPool;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class BaseDao implements AutoCloseable {
     protected Connection connection;
@@ -12,7 +13,7 @@ public abstract class BaseDao implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws SQLException {
         connection.close();
     }
 }

@@ -13,8 +13,8 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/browse/detail.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/browse/swiper.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/detail/detail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/detail/swiper.css">
 
 </head>
 <body>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="search_tab">
-        <a href="">探索</a>
+        <a href="${}">探索</a>
         <a href="">浏览</a>
         <a href="">新闻</a>
     </div>
@@ -71,8 +71,8 @@
 
 <div class="tabs w">
     <div class="tab_list">
-        <a href="${pageContext.request.contextPath}/app/pages/detail.jsp" class="on">概览</a>
-        <a href="${pageContext.request.contextPath}/app/pages/detail1.jsp">附加内容</a>
+        <a href="${pageContext.request.contextPath}/game/detail" class="on">概览</a>
+        <a href="${pageContext.request.contextPath}/game/detail/dlc">附加内容</a>
     </div>
 </div>
 
@@ -353,7 +353,7 @@
         </div>
 
         <div class="game_list_more">
-            <a href="${pageContext.request.contextPath}/app/pages/detail1.jsp">查看更多</a>
+            <a href="${pageContext.request.contextPath}/app/views/detail_dlc.jsp">查看更多</a>
         </div>
 
         <div class="game_list">
