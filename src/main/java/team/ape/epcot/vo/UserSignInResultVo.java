@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserSignUpVo {
-    private boolean registering;
-    private boolean isRegistered;
+public class UserSignInResultVo {
+    private boolean isSucceeded;
     private String failReason;
+    private String token;
 }

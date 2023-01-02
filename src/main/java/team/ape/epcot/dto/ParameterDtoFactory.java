@@ -3,7 +3,7 @@ package team.ape.epcot.dto;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
-public class DtoFactory {
+public class ParameterDtoFactory {
     public static <T> T createByHttpRequest(Class<T> dtoClass, HttpServletRequest request) {
         T dto;
         try {

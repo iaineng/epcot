@@ -1,0 +1,43 @@
+body {
+    background-color: rgba(0, 0, 0, 0.93);
+}
+
+#signInDialog {
+    width: 960px;
+    margin: 32px auto;
+    background-color: #202020;
+    padding: 50px 55px 60px;
+    border-radius: 4px;
+}
+
+img {
+    object-fit: contain;
+}
+
+:root .form-control {
+    color: white;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+:root .form-control:focus {
+    box-shadow: none;
+    border-color: white;
+}
+
+.form-floating > label {
+    opacity: .65 !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}

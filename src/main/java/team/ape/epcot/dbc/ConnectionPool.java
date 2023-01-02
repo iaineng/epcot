@@ -11,8 +11,8 @@ public class ConnectionPool {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/db_epcot";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "postgres";
-    private static final int INITIAL_POOL_SIZE = 1;
-    private static final int MAX_POOL_SIZE = 10;
+    private static final int INITIAL_POOL_SIZE = 3;
+    private static final int MAX_POOL_SIZE = 50;
 
     private static final List<Connection> connectionPool = new ArrayList<>();
     private static int usedConnections = 0;

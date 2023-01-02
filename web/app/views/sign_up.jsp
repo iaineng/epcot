@@ -1,8 +1,4 @@
-<%@ page import="team.ape.epcot.vo.UserSignUpVo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    UserSignUpVo signUpVo = (UserSignUpVo) request.getAttribute("signUp");
-%>
 <html>
 <head>
     <title>注册 EPCOT 账户</title>
@@ -23,7 +19,7 @@
         <div class="col-7 text-white">
             <div class="text-center fs-5 mb-3">注册</div>
             <div>
-                <form method="post" action="${pageContext.request.contextPath}/account/sign_up">
+                <form method="post" action="${pageContext.request.contextPath}/account/sign_up_result">
                     <div class="mb-4">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="username" placeholder="用户名" name="username" required>
@@ -78,9 +74,10 @@
                             </label>
                         </div>
                     </div>
-                    <div>
+                    <div class="mb-5">
                         <button type="submit" class="btn btn-primary w-100">继续</button>
                     </div>
+                    <div class="text-center"><span style="opacity: .65;">已有 Epcot 账户？</span> <a href="${pageContext.request.contextPath}/account/sign_in" class="text-white">登录</a></div>
                 </form>
             </div>
         </div>

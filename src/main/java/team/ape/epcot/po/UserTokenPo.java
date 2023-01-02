@@ -9,8 +9,10 @@ import java.util.Date;
 @Data
 public class UserTokenPo {
     private long id;
+    @Col(name = "fr_user_id")
     private long userId;
     private String token;
+    private boolean isDisabled;
     private Date expiredAt;
     private Date createdAt;
     private Date deletedAt;

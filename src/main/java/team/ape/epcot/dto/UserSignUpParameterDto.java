@@ -2,10 +2,8 @@ package team.ape.epcot.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class UserRegisterParameterDto {
+public class UserSignUpParameterDto {
     private String username;
     private String nickname;
     private String password;
