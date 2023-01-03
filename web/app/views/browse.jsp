@@ -176,24 +176,19 @@
 
 
 <div class="prolist w ">
-
-
     <div class="prolist_left">
         <div class="prolist_left_tit" tabindex="1">
-            显示: <span>最新推出</span>
-
+            显示: <span>不排序</span>
             <div class="prolist_sub">
-                <a href="">所有</a>
-                <a href="" class="on">最新推出</a>
-                <a href="">即将推出</a>
-                <a href="">按字母顺序</a>
-                <a href="">价格：由高至低</a>
-                <a href="">价格：由低至高</a>
+                <a href="" class="on filter-option" data-fo-option="sort" data-fo-option-value="">不排序</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="titleAsc">按字母顺序</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="titleDesc">按字母倒序</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="releasedAtDesc">推出时间：由新至旧</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="releasedAtAsc">推出时间：由旧至新</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="priceDesc">价格：由高至低</a>
+                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="priceAsc">价格：由低至高</a>
             </div>
-
         </div>
-
-
         <div class="prolist_main">
             <%
                 for (GameVoEntity game : browseVo.getGames()) {
@@ -236,8 +231,6 @@
             %>
         </div>
     </div>
-
-
     <div class="prolist_right">
         <div class="prolist_right_tit">筛选器</div>
         <div class="prolist_right_search">
@@ -247,23 +240,14 @@
         </div>
         <ul class="prolist_right_list">
             <li tabindex="1" class="fir">
-                <span>活动</span>
-            </li>
-            <li class="sub">
-                <div tabindex="1">
-                    <a href="">2K Gearbox 特卖</a>
-                </div>
-                <div tabindex="1" class="focus">
-                    <a href="">年假日特卖</a>
-                </div>
-            </li>
-            <li tabindex="1" class="fir">
                 <span>价格</span>
             </li>
-
             <li class="sub">
                 <div tabindex="1">
                     <a href="">免费</a>
+                </div>
+                <div tabindex="1">
+                    <a href="">折扣</a>
                 </div>
                 <div tabindex="1">
                     <a href="">¥70.00 以下</a>
@@ -274,18 +258,10 @@
                 <div tabindex="1">
                     <a href="">¥210.00 以下</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">¥90.00 及以上</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">折扣</a>
-                </div>
             </li>
             <li tabindex="1" class="fir">
                 <span>游戏类型</span>
             </li>
-
-
             <li class="sub">
                 <div tabindex="1">
                     <a href="">策略</a>
@@ -389,74 +365,6 @@
                 <div tabindex="1">
                     <a href="">Rogue-lite</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">THQ 发行商促销</a>
-                </div>
-            </li>
-            <li tabindex="1" class="fir">
-                <span>特色</span>
-            </li>
-
-
-            <li class="sub">
-                <div tabindex="1">
-                    <a href="">成就</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">单人</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">多人</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">多人在线游戏</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">合作</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">竞技</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">跨平台</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">云存储</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">支持手柄</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">VR</a>
-                </div>
-            </li>
-
-
-            <li tabindex="1" class="fir">
-                <span>类别</span>
-            </li>
-            <li class="sub">
-                <div tabindex="1">
-                    <a href="">编辑器</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">软件</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">游戏</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">游戏版本</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">游戏附加内容</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">游戏捆绑包</a>
-                </div>
-                <div tabindex="1">
-                    <a href="">游戏演示版</a>
-                </div>
             </li>
             <li tabindex="1" class="fir">
                 <span>平台</span>
@@ -472,11 +380,8 @@
         </ul>
     </div>
 </div>
-
 <div class="wishlist-container">
-
 </div>
-
 <div class="footer">
     <div class="w1">
         <div class="footer_icon">
@@ -536,6 +441,22 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
+    $('.filter-option').click(function (event) {
+        console.log(event.target);
+    })
+
+    function startFilter() {
+        const param = new URLSearchParams(window.location.search)
+        param.set('filter', '1')
+        window.location.search = '?' + param.toString()
+    }
+
+    function whenSortChange(sort) {
+        return function () {
+
+        }
+    }
+
     $('.proadd').hover(function () {
         $(this).closest('.proitem').find('.protask').toggle();
     })

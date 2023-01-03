@@ -57,4 +57,12 @@ public class GameVoEntity {
     private Preordering preordering;
 
     private List<Dlc> dlcs;
+
+    public BigDecimal getActualPrice() {
+        if (discounting != null) {
+            return discounting.getDiscountedPrice();
+        } else {
+            return price;
+        }
+    }
 }
