@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 public class PreorderingGamePo {
     private long id;
+    @Col(name = "fr_game_id")
     private long gameId;
     private Date startedAt;
     private Date finishedAt;

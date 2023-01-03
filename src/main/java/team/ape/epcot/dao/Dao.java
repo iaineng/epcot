@@ -47,7 +47,15 @@ public abstract class Dao<T> implements AutoCloseable {
         }
     }
 
-    protected List<T> getBy(String colName, Object value, int limit, int offset) throws SQLException {
+    protected List<T> getsBy(String colName, Object value) throws SQLException {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE " + colName + " = ? AND deleted_at IS NULL";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, value);
+            return extractAll(statement);
+        }
+    }
+
+    protected List<T> getsBy(String colName, Object value, int limit, int offset) throws SQLException {
         String sql = "SELECT * FROM " + getTableName() + " WHERE " + colName + " = ? AND deleted_at IS NULL LIMIT ? OFFSET ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, value);

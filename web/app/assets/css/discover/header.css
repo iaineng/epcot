@@ -4,9 +4,14 @@
     padding-left: .5rem;
 }
 
+#nav > div {
+    height: 100%;
+}
+
 #nav .logo {
     float: left;
     margin-right: .5rem;
+    height: 100%;
 }
 
 #nav .logo img {

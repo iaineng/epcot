@@ -15,12 +15,13 @@ public class GamePo {
     private String coverUrls;
     private String downloadLink;
     private BigDecimal price;
-    private String developer;
-    private String publisher;
+    private Date createdAt;
+    private Date deletedAt;
     private String tags;
     private String platforms;
     private String reviews;
     private String marks;
-    private Date createdAt;
-    private Date deletedAt;
+    private String developer;
+    private String publisher;
+    private Date releasedAt;
 }

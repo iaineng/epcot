@@ -14,6 +14,7 @@ public class GameVoEntity {
     @NoArgsConstructor
     public static class Discounting {
         private int discountPercentage;
+        private BigDecimal discountedPrice;
         private Date startedAt;
         private Date finishedAt;
     }
@@ -23,6 +24,18 @@ public class GameVoEntity {
     public static class Preordering {
         private Date startedAt;
         private Date finishedAt;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Dlc {
+        private String title;
+        private String description;
+        private BigDecimal price;
+        private List<String> coverUrls;
+        private String downloadLink;
+        private Date releasedAt;
+        private boolean isOwned;
     }
 
     private String title;
@@ -36,9 +49,12 @@ public class GameVoEntity {
     private List<String> marks;
     private String developer;
     private String publisher;
-    private Date releaseDate;
+    private Date releasedAt;
+    private boolean isOwned;
 
     private Discounting discounting;
 
     private Preordering preordering;
+
+    private List<Dlc> dlcs;
 }
