@@ -9,7 +9,9 @@ import java.util.Date;
 @Data
 public class UserGameAssetPo {
     private long id;
+    @Col(name = "fr_user_id")
     private long userId;
+    @Col(name = "fr_game_id")
     private long gameId;
     private Date createdAt;
     private Date deletedAt;

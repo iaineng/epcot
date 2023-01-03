@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>注册结果</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_up_result/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/app/assets/js/sign_up_result/bootstrap.bundle.min.js"></script>

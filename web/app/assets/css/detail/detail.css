@@ -3,7 +3,7 @@
     margin: 0;
 }
 body {
-    background: #1c1c1c;
+    background: rgb(18, 18, 18);
     font-size: 14px;
 }
 .w {
@@ -22,6 +22,11 @@ a {
     height: 395px;
 }
 .search {
+    z-index: 1000;
+    position: sticky;
+    background: rgb(18, 18, 18);
+    left: 0;
+    top: 0;
     display: flex;
     align-items: center;
     padding: 30px 0;
@@ -158,8 +163,9 @@ a {
     width: 696px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 20px 0;
+    gap: 20px;
 }
 .gailan .swiper-pagination-bullet {
     display: flex;
@@ -167,9 +173,9 @@ a {
     height: 56px;
     box-sizing: border-box;
     border-radius: 3px;
-    background: url(../../images/detail/play.svg) no-repeat center center;
-    background-size: 15px 15px;
-    background-color: #1c1c1c;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     opacity: 1;
     border: 1px solid transparent;
 }
@@ -207,7 +213,7 @@ a {
     text-decoration: underline;
 }
 
-.game_desc {
+.game_desc, .game_desc .game_desc_title:not(:first-child) {
     margin-top: 40px;
 }
 .game_desc_title {

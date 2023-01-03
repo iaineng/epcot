@@ -1,74 +1,71 @@
+<%@ page import="team.ape.epcot.entity.UserVoEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    UserVoEntity user = (UserVoEntity) request.getAttribute("userVoEntity");
+%>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/discover/discover.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/discover/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <script src="${pageContext.request.contextPath}/app/assets/js/discover/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/app/assets/js/discover/bootstrap.min.js"></script>
+    <title>探索</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
+    <link type="text/css" rel="stylesheet"
+          href="${pageContext.request.contextPath}/app/assets/css/discover/bootstrap.min.css"/>
+    <script src="${pageContext.request.contextPath}/app/assets/js/discover/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link type="text/css" rel="stylesheet"
+          href="${pageContext.request.contextPath}/app/assets/css/discover/header.css"/>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg bar-bg">
-        <div class="shieldLogo p-1">
-            <a class="navbar-brand" href="#">
-                <img src="${pageContext.request.contextPath}/app/assets/images/discover/logo.png" width="36" height="36" class="d-inline-block align-items-center" alt="">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse align-items-center">
-            <div class="navbar-nav">
-                <a class="nav-item text-gray-500 mx-2 nav-link" href="#">商城</a>
-                <a class="nav-item text-gray-500 mx-2 nav-link" href="#">新闻</a>
-                <a class="nav-item text-gray-500 mx-2 nav-link" href="#">常见问题</a>
-                <a class="nav-item text-gray-500 mx-2 nav-link" href="#">帮助</a>
-                <a class="nav-item text-gray-500 mx-2 nav-link" href="#">虚幻引擎</a>
-                <a class="nav-item text-gray-500 mx-2 nav-link border-left px-4" href="#">关于Epicot</a>
+    <nav id="nav">
+        <div>
+            <div class="logo">
+                <a href="${pageContext.request.contextPath}/">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+                </a>
             </div>
-        </div>
-        <div class="collapse navbar-collapse rightNav">
-            <div class="navbar-nav align-items-center">
-                <a class="nav-link text-gray-500 text-white-50 mx-2 language" href="#"><i class="bi bi-globe-americas"></i></a>
-                <a class="mx-2 nav-link text-gray-500" href="#"><i class="bi bi-person"></i>登录</a>
-                <a class="btn btn-primary mx-2 nav-link text-gray-500 h-100" href="#">获取客户端</a>
+            <div class="true-nav">
+                <ul>
+                    <li>
+                        <a class="link active" href="javascript:void(0);">
+                            <span class="link-text">商城</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link" href="javascript:void(0);">
+                            <span class="link-text">常见问题</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link" href="javascript:void(0);">
+                            <span class="link-text">帮助</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+            <div class="user-login">
+                <%
+                    if (user == null) {
+                %>
+                <a href="${pageContext.request.contextPath}/account/sign_in" class="link">
+                    <i class="bi bi-person-fill-exclamation"></i>
+                    <span>登录</span>
+                </a>
+                <%
+                } else {
+                %>
+                <a href="${pageContext.request.contextPath}/account" class="link">
+                    <i class="bi bi-person-fill"></i>
+                    <span style="text-transform: uppercase;"><%
+                        out.write(user.getNickname());
+                    %></span>
+                </a>
+                <%
+                    }
+                %>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </nav>
 </header>
-<div class="sliderCarouselHome eg-sliderCarousel">
-    <div id="sliderWrapper" class="text-center">
-        <div id="slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_1.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_2.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_3.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_4.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_5.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_6.jpg" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/app/assets/images/discover/carousel_7.jpg" class="d-block w-100">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </a>
-            <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</div>
 </body>
 </html>

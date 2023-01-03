@@ -10,7 +10,7 @@
 <head>
     <title>Title</title>
   <link href="">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/wishlist/bootstrap.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/wishlist/wishlist.css">
 </head>

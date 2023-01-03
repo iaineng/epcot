@@ -47,7 +47,15 @@ public abstract class Dao<T> implements AutoCloseable {
         }
     }
 
-    protected List<T> getBy(String colName, Object value, int limit, int offset) throws SQLException {
+    protected List<T> getsBy(String colName, Object value) throws SQLException {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE " + colName + " = ? AND deleted_at IS NULL";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, value);
+            return extractAll(statement);
+        }
+    }
+
+    protected List<T> getsBy(String colName, Object value, int limit, int offset) throws SQLException {
         String sql = "SELECT * FROM " + getTableName() + " WHERE " + colName + " = ? AND deleted_at IS NULL LIMIT ? OFFSET ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, value);
@@ -169,7 +177,7 @@ public abstract class Dao<T> implements AutoCloseable {
                 dbFieldName = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
             }
             try {
-                Method method = po.getClass().getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName()), field.getType());
+                Method method = po.getClass().getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName().replaceFirst("^is", "")), field.getType());
                 method.invoke(po, rs.getObject(dbFieldName));
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 throw new RuntimeException(e);

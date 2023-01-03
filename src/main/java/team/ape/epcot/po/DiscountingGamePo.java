@@ -10,9 +10,9 @@ import java.util.Date;
 @Data
 public class DiscountingGamePo {
     private long id;
+    @Col(name = "fr_game_id")
     private long gameId;
     private int discountPercentage;
-    private BigDecimal discountedPrice;
     private Date startedAt;
     private Date finishedAt;
     private Date createdAt;

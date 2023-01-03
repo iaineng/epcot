@@ -2,10 +2,11 @@
 <html>
 <head>
     <title>登录 EPCOT 账户</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_in/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/app/assets/js/sign_in/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/app/assets/js/sign_in/sha256.min.js"></script>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_in/sign_in.css"/>
 </head>
@@ -50,7 +51,8 @@
                         </div>
                     </div>
                     <div class="mb-5">
-                        <button type="submit" class="btn btn-primary w-100">现在登录</button>
+                        <button type="submit" class="btn btn-primary w-100" onclick="onSubmitButtonClick()">现在登录
+                        </button>
                     </div>
                     <div class="text-center"><span style="opacity: .65;">还没有 Epcot 账户？</span> <a
                             href="${pageContext.request.contextPath}/account/sign_up" class="text-white">注册</a></div>
@@ -59,5 +61,48 @@
         </div>
     </div>
 </div>
+<script>
+    let elEmailInput = document.getElementById('email')
+    let elPasswordInput = document.getElementById('password')
+    let elRememberMeCheck = document.getElementById('rememberMe')
+
+    function saveEmailAndPassword(email, password) {
+        localStorage.setItem("savedEmail", email)
+        localStorage.setItem("savedPassword", password)
+    }
+
+    function clearEmailAndPassword() {
+        localStorage.removeItem("savedEmail")
+        localStorage.removeItem("savedPassword")
+    }
+
+    function autoFillEmailAndPassword() {
+        const savedEmail = localStorage.getItem("savedEmail")
+        const savedPassword = localStorage.getItem("savedPassword")
+        if (savedEmail != null && savedPassword != null) {
+            elEmailInput.value = savedEmail
+            elPasswordInput.value = savedPassword
+            elRememberMeCheck.checked = true
+        }
+    }
+
+    function onSubmitButtonClick() {
+        if (elRememberMeCheck.checked) {
+            saveEmailAndPassword(elEmailInput.value, elPasswordInput.value)
+        } else {
+            clearEmailAndPassword()
+        }
+
+        elPasswordInput.value = sha256(elPasswordInput.value);
+    }
+
+    window.addEventListener('load', function () {
+        elEmailInput = document.getElementById('email')
+        elPasswordInput = document.getElementById('password')
+        elRememberMeCheck = document.getElementById('rememberMe')
+
+        autoFillEmailAndPassword()
+    })
+</script>
 </body>
 </html>

@@ -17,4 +17,7 @@ public class GameDlcPo {
     private BigDecimal price;
     private Date createdAt;
     private Date deletedAt;
+    private String coverUrls;
+    private String downloadLink;
+    private Date releasedAt;
 }

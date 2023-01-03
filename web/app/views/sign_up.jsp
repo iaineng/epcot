@@ -2,10 +2,11 @@
 <html>
 <head>
     <title>注册 EPCOT 账户</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_up/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/app/assets/js/sign_up/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/app/assets/js/sign_up/sha256.min.js"></script>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_up/sign_up.css"/>
 </head>
@@ -83,5 +84,11 @@
         </div>
     </div>
 </div>
+<script>
+    function onSubmitButtonClick () {
+        const elPasswordInput = document.querySelector('#password')
+        elPasswordInput.value = sha256(elPasswordInput.value);
+    }
+</script>
 </body>
 </html>

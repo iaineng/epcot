@@ -1,0 +1,105 @@
+#nav {
+    height: 52px;
+    background-color: #2a2a2a;
+    padding-left: .5rem;
+}
+
+#nav > div {
+    height: 100%;
+}
+
+#nav .logo {
+    float: left;
+    margin-right: .5rem;
+    height: 100%;
+}
+
+#nav .logo img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
+
+#nav .true-nav {
+    float: left;
+    height: 100%;
+}
+
+#nav .true-nav ul {
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#nav .true-nav .link {
+    font-size: .75rem;
+    padding: 0 1rem;
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    color: #ccc;
+    text-decoration: none;
+}
+
+#nav .true-nav .link::after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 100%;
+    background-color: #0078f2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: height .2s ease-in-out;
+}
+
+#nav .true-nav .link:hover {
+    color: white;
+}
+
+#nav .true-nav .link:hover::after {
+    height: 5px;
+}
+
+#nav .true-nav .link.active::after {
+    height: 5px;
+}
+
+#nav .user-login {
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#nav .user-login .link {
+    font-size: .75rem;
+    padding: 0 1rem;
+    color: #ccc;
+    text-decoration: none;
+}
+
+#nav .user-login .link:hover {
+    color: white;
+}
+
+#nav .user-login .link .bi {
+    font-size: 1.25rem;
+    margin-right: .25rem;
+}
+
+#nav .user-login .link span {
+    vertical-align: middle;
+}
+
+#nav .clearfix::after {
+    display: block;
+    clear: both;
+    content: ""
+}

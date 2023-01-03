@@ -2,8 +2,8 @@ package team.ape.epcot.dao;
 
 import team.ape.epcot.po.GameDlcPo;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDlcDao extends Dao<GameDlcPo> {
     public GameDlcDao() {
@@ -11,11 +11,11 @@ public class GameDlcDao extends Dao<GameDlcPo> {
     }
 
     public GameDlcPo getByTitle(String title) throws SQLException {
-        String sql = "SELECT * FROM tb_game_dlc WHERE title = ? AND deleted_at IS NULL";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, title);
-            return extract(statement);
-        }
+        return getBy("title", title);
+    }
+
+    public List<GameDlcPo> getsByGameId(long gameId) throws SQLException {
+        return getsBy("fr_game_id", gameId);
     }
 
     @Override

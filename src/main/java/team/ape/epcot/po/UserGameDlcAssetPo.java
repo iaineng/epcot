@@ -9,7 +9,9 @@ import java.util.Date;
 @Data
 public class UserGameDlcAssetPo {
     private long id;
+    @Col(name = "fr_user_id")
     private long userId;
+    @Col(name = "fr_game_dlc_id")
     private long gameDlcId;
     private Date createdAt;
     private Date deletedAt;

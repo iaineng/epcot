@@ -4,22 +4,31 @@ import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import team.ape.epcot.dao.UserDao;
+import team.ape.epcot.dao.UserGameAssetDao;
+import team.ape.epcot.dao.UserGameDlcAssetDao;
 import team.ape.epcot.dao.UserTokenDao;
 import team.ape.epcot.dto.UserSignUpParameterDto;
+import team.ape.epcot.po.UserGameAssetPo;
+import team.ape.epcot.po.UserGameDlcAssetPo;
 import team.ape.epcot.po.UserPo;
 import team.ape.epcot.po.UserTokenPo;
 import team.ape.epcot.vo.UserSignInResultVo;
 import team.ape.epcot.vo.UserSignUpResultVo;
-import team.ape.epcot.vo.entity.UserVoEntity;
+import team.ape.epcot.entity.UserVoEntity;
 
+import javax.servlet.http.Cookie;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserService extends Service {
     private final UserDao userDao = new UserDao();
     private final UserTokenDao userTokenDao = new UserTokenDao();
+    private final UserGameAssetDao userGameAssetDao = new UserGameAssetDao();
+    private final UserGameDlcAssetDao userGameDlcAssetDao = new UserGameDlcAssetDao();
 
     @SneakyThrows({ParseException.class})
     public UserSignUpResultVo signUp(UserSignUpParameterDto param) throws SQLException {
@@ -74,7 +83,7 @@ public class UserService extends Service {
 
         String token;
         do {
-            token = DigestUtils.sha256Hex(
+            token = DigestUtils.sha512Hex(
                     user.getId() +
                             user.getEmail() +
                             user.getUsername() +
@@ -95,33 +104,58 @@ public class UserService extends Service {
     }
 
     public UserVoEntity getUser(String token) throws SQLException {
-        UserTokenPo userToken = userTokenDao.getByToken(token);
-        if (userToken == null) {
+        UserTokenPo userTokenPo = userTokenDao.getByToken(token);
+        if (userTokenPo == null) {
             return null;
         }
-        if (userToken.getExpiredAt().before(new Date())) {
+        if (userTokenPo.getExpiredAt().before(new Date())) {
             return null;
         }
-        if (userToken.isDisabled()) {
+        if (userTokenPo.isDisabled()) {
             return null;
         }
 
-        UserPo user = userDao.getById(userToken.getUserId());
-        if (user == null) {
+        UserPo userPo = userDao.getById(userTokenPo.getUserId());
+        if (userPo == null) {
             return null;
         }
+
+        List<UserGameAssetPo> userGameAssetPos = userGameAssetDao.getsByUserId(userPo.getId());
+        List<Long> ownedGameIds = userGameAssetPos.stream().map(UserGameAssetPo::getGameId).collect(Collectors.toList());
+
+        List<UserGameDlcAssetPo> userGameDlcAssetPos = userGameDlcAssetDao.getsByUserId(userPo.getId());
+        List<Long> ownedGameDlcIds = userGameDlcAssetPos.stream().map(UserGameDlcAssetPo::getGameDlcId).collect(Collectors.toList());
 
         UserVoEntity vo = new UserVoEntity();
-        vo.setUsername(user.getUsername());
-        vo.setNickname(user.getNickname());
-        vo.setEmail(user.getEmail());
+        vo.setUsername(userPo.getUsername());
+        vo.setNickname(userPo.getNickname());
+        vo.setEmail(userPo.getEmail());
+        vo.setAddress(userPo.getAddress());
+        vo.setOwnedDlcIds(ownedGameIds);
+        vo.setOwnedGameIds(ownedGameDlcIds);
 
         return vo;
+    }
+
+    public UserVoEntity getUser(Cookie[] cookies) throws SQLException {
+        if (cookies == null) {
+            return null;
+        }
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                return getUser(cookie.getValue());
+            }
+        }
+
+        return null;
     }
 
     @Override
     public void close() throws SQLException {
         userDao.close();
         userTokenDao.close();
+        userGameAssetDao.close();
+        userGameDlcAssetDao.close();
     }
 }
