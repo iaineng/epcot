@@ -1,4 +1,4 @@
-package team.ape.epcot.vo.entity;
+package team.ape.epcot.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

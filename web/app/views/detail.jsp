@@ -27,7 +27,7 @@
     </div>
 
     <div class="search_tab">
-        <a href="${}">探索</a>
+        <a href="">探索</a>
         <a href="">浏览</a>
         <a href="">新闻</a>
     </div>

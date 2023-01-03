@@ -10,8 +10,9 @@ import team.ape.epcot.po.UserPo;
 import team.ape.epcot.po.UserTokenPo;
 import team.ape.epcot.vo.UserSignInResultVo;
 import team.ape.epcot.vo.UserSignUpResultVo;
-import team.ape.epcot.vo.entity.UserVoEntity;
+import team.ape.epcot.entity.UserVoEntity;
 
+import javax.servlet.http.Cookie;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,6 +118,20 @@ public class UserService extends Service {
         vo.setEmail(user.getEmail());
 
         return vo;
+    }
+
+    public UserVoEntity getUser(Cookie[] cookies) throws SQLException {
+        if (cookies == null) {
+            return null;
+        }
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                return getUser(cookie.getValue());
+            }
+        }
+
+        return null;
     }
 
     @Override

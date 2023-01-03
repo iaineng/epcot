@@ -1,14 +1,16 @@
 package team.ape.epcot.controller;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "DiscoverController", value = "/discover")
-public class DiscoverController extends HttpServlet {
+public class DiscoverController extends Controller {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        placeUser(request);
         request.getRequestDispatcher("/app/views/discover.jsp").forward(request, response);
     }
 

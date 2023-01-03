@@ -169,7 +169,7 @@ public abstract class Dao<T> implements AutoCloseable {
                 dbFieldName = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
             }
             try {
-                Method method = po.getClass().getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName()), field.getType());
+                Method method = po.getClass().getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName().replaceFirst("^is", "")), field.getType());
                 method.invoke(po, rs.getObject(dbFieldName));
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 throw new RuntimeException(e);

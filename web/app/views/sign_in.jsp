@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>登录 EPCOT 账户</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_in/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/app/assets/js/sign_in/bootstrap.bundle.min.js"></script>
