@@ -107,7 +107,7 @@ body{
     border: 0;
     color: #fff;
 }
-.search_tab a .active{
+.search_tab a.active{
     color: #fff;
 }
 .wishlist-container{

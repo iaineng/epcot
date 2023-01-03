@@ -48,11 +48,11 @@
         <a href="">探索</a>
         <a href="">浏览</a>
         <a href="">新闻</a>
-        <a href="#"><button id="wishlist-page" class="active">愿望清单</button></a>
-        <a href="#"><button id="cart-page">购物车</button></a>
+        <a href="" class="active" id="wishlist-page">愿望清单</a>
+        <a href="" id="cart-page">购物车</a>
     </div>
 </div>
-<div class="wishlist-container" id="wishlist-view">
+<div class="wishlist-container page-active" id="wishlist-view">
   <div class="scf">
     <section>
       <div class="container-and-bar">
@@ -189,57 +189,8 @@
     </section>
   </div>
 </div>
-<div class="cart-views d-none" id="cart-view">
-    <div class="cart-container">
-        <div class="css-r2r3m1">
-            <section class="css-1q9jlv0">
-                <div class="css-yewo14">
-                    <div class="css-1p2cbqg">
-                        <h1>
-                            <span>我的购物车</span>
-                        </h1>
-                    </div>
-                    <div class="css-map4tx">
-                        <div class="css-11fvpc2">
-                            <div class="css-dvxtzn">
-                                <div class="css-1xn3edc">
-                                    <span class="css-14aopxi">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg css-uwwqev" viewBox="0 0 45 52"><g fill="none" fill-rule="evenodd"><path d="M4.058 0C1.094 0 0 1.098 0 4.075v35.922c0 .338.013.65.043.94.068.65-.043 1.934 2.285 2.96 1.553.683 7.62 3.208 18.203 7.573 1.024.428 1.313.529 2.081.529.685.013 1.137-.099 2.072-.53 10.59-4.227 16.66-6.752 18.213-7.573 2.327-1.23 2.097-3.561 2.097-3.899V4.075C44.994 1.098 44.13 0 41.166 0H4.058z" fill="currentColor"></path><path stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 18l4.91 2.545-2.455 4M25.544 28.705c-1.056-.131-1.806-.14-2.25-.025-.444.115-1.209.514-2.294 1.197M29.09 21.727L25 19.5l2.045-3.5"></path></g></svg>
-                                    </span>
-                                </div>
-                                <div class="css-1upilqn">
-                                    <span class="css-mywzwd">
-                                        <span>您的购物车是空的。</span>
-                                    </span>
-                                </div>
-                                <div class="">
-                                    <span class="css-119zqif">
-                                        <a href="#" class="css-8dq9ld">
-                                            <span>选购游戏与应用</span>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-</div>
 <script type="text/javascript">
 
-    $("#wishlist-page").click(function () {
-        $("#cart-view").addClass("d-none");
-        $("#wishlist-view").removeClass("d-none");
-        $("#wishlist-view").addClass("page-active");
-    });
-
-    $("#cart-page").click(function () {
-        $("#wishlist-view").addClass("d-none");
-        $("#cart-view").removeClass("d-none");
-        $("#cart-view").addClass("page-active");
-    });
 </script>
 </body>
 </html>
