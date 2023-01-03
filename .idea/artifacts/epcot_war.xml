@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="epcot:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/epcot_war</output-path>
+    <root id="archive" name="epcot_war.war">
+      <element id="artifact" artifact-name="epcot:war exploded" />
+    </root>
+  </artifact>
+</component>

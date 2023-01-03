@@ -19,12 +19,13 @@
         <a href="">探索</a>
         <a href="" class="on">浏览</a>
         <a href="">新闻</a>
+        <a href="#">愿望清单</a>
+        <a href="#">购物车</a>
     </div>
-
 </div>
 
 
-<div class="categories w">
+<div class="categories w d-none">
 
     <div class="cat_tit">
 
@@ -1423,6 +1424,9 @@
     </div>
 </div>
 
+<div class="wishlist-container">
+
+</div>
 
 <div class="footer">
 
