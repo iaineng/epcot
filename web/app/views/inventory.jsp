@@ -1,23 +1,22 @@
 <%@ page import="team.ape.epcot.entity.UserVoEntity" %>
-<%@ page import="team.ape.epcot.vo.DiscoverVo" %>
-<%@ page import="team.ape.epcot.entity.DiscoverBannerVoEntity" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="team.ape.epcot.entity.GameVoEntity" %>
+<%@ page import="team.ape.epcot.vo.InventoryVo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     UserVoEntity user = (UserVoEntity) request.getAttribute("userVoEntity");
-    DiscoverVo discoverVo = (DiscoverVo) request.getAttribute("discoverVo");
+    InventoryVo inventoryVo = (InventoryVo) request.getAttribute("inventoryVo");
 %>
 <html>
 <head>
-    <title>探索</title>
+    <title>库存</title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
-    <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/app/assets/css/discover/bootstrap.min.css"/>
-    <script src="${pageContext.request.contextPath}/app/assets/js/discover/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/detail_dlc.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/swiper.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/discover/header.css"/>
-    <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/app/assets/css/discover/discover.css"/>
 </head>
 <body>
 <header>
@@ -72,46 +71,47 @@
         </div>
     </nav>
 </header>
-
 <div id="top" class="search w">
     <div class="search_input">
-        <input type="text" name="" placeholder="探索商城">
+        <input type="" name="" placeholder="探索商城">
     </div>
     <div class="search_tab">
-        <a href="" class="on">探索</a>
+        <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
-        <a href="">库存</a>
+        <a href="" class="on">库存</a>
         <a href="">愿望清单</a>
         <a href="">购物车</a>
     </div>
 </div>
 
-<section style="width: 1080px;" class="d-block mx-auto mb-5">
-    <div id="carousel" class="carousel slide overflow-hidden" data-bs-ride="carousel" style="border-radius: 16px;">
-        <div class="carousel-inner">
+<div class="tabs w">
+    <div class="tab_name">库存</div>
+</div>
+<div class="prolist w ">
+    <div class="prolist_left" >
+        <div class="prolist_main">
             <%
-                for (DiscoverBannerVoEntity banner : discoverVo.getBanners()) {
+                for (GameVoEntity game : inventoryVo.getGames()) {
             %>
-            <div class="carousel-item <% if (banner.getPosition() == 1) out.write("active"); %>" data-bs-interval="5000">
-                <a href="${pageContext.request.contextPath}<%= banner.getLink() %>">
-                    <img src="${pageContext.request.contextPath}<%= banner.getImageUrl() %>"
-                         class="d-block w-100">
+            <div class="proitem">
+                <a href="${pageContext.request.contextPath}/game/detail?title=<%= Base64.encodeBase64URLSafeString(game.getTitle().getBytes(StandardCharsets.UTF_8)) %>">
+                    <div class="proimg">
+                        <div class="proimg_bg"></div>
+                        <img src="${pageContext.request.contextPath}<%= game.getCoverUrls().get(0) %>">
+                    </div>
+                    <div class="protype">基础游戏</div>
+                    <div class="proname"><%= game.getTitle() %></div>
+                    <div class="proprice">
+                        <div class="proxianjia"></div>
+                    </div>
                 </a>
             </div>
             <%
                 }
             %>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-</section>
+</div>
 
 <div class="footer">
     <div class="w1">
@@ -166,5 +166,35 @@
         </div>
     </div>
 </div>
+
+
+<script src="${pageContext.request.contextPath}/app/assets/js/browse/swiper2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    $('.proadd').hover(function(){
+        $(this).closest('.proitem').find('.protask').toggle();
+    })
+    $('.fir').click(function(){
+
+        if($(this).next('.sub').css('display') == 'flex'){
+            $(this).next('.sub').css('display','none');
+        }else {
+            $(this).next('.sub').css('display','flex');
+        }
+        $(this).toggleClass('focus');
+    })
+    $('.sub > div').click(function(){
+        $(this).toggleClass('focus');
+    })
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+        navigation: {
+            nextEl: '.s_left',
+            prevEl: '.s_right',
+        },
+    })
+</script>
 </body>
 </html>

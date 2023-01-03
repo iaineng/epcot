@@ -3,6 +3,8 @@
 <%@ page import="team.ape.epcot.entity.UserVoEntity" %>
 <%@ page import="team.ape.epcot.entity.GameVoEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.apache.commons.codec.binary.Base64" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     UserVoEntity user = (UserVoEntity) request.getAttribute("userVoEntity");
@@ -14,16 +16,33 @@
     } else {
         coverUrls = detailVo.getGame().getCoverUrls();
     }
+
+    boolean owned;
+    if (detailVo.isDlcDetail()) {
+        owned = detailVo.getDlc().isOwned();
+    } else {
+        owned = detailVo.getGame().isOwned();
+    }
+
+    String downloadLink;
+    if (detailVo.isDlcDetail()) {
+        downloadLink = detailVo.getDlc().getDownloadLink();
+    } else {
+        downloadLink = detailVo.getGame().getDownloadLink();
+    }
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title><%= detailVo.getGame().getTitle() %>
+    </title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/detail/detail.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/detail/swiper.css">
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/discover/header.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
         <%
 for (int i = 2; i < coverUrls.size(); i++) {
@@ -97,7 +116,9 @@ for (int i = 2; i < coverUrls.size(); i++) {
     <div class="search_tab">
         <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
-        <a href="javascript:void(0);">新闻</a>
+        <a href="${pageContext.request.contextPath}/inventory">库存</a>
+        <a href="">愿望清单</a>
+        <a href="">购物车</a>
     </div>
 </div>
 <div class="tabs w">
@@ -110,8 +131,10 @@ for (int i = 2; i < coverUrls.size(); i++) {
         <%
             if (detailVo.getGame().getDlcs().size() > 0) {
         %>
-        <a href="${pageContext.request.contextPath}/game/detail" class="on">概览</a>
-        <a href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= detailVo.getGame().getTitle() %>">附加内容</a>
+        <a class="<% if (!detailVo.isDlcDetail()) out.write("on"); %>"
+           href="${pageContext.request.contextPath}/game/detail?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">概览</a>
+        <a class="<% if (detailVo.isDlcDetail()) out.write("on"); %>"
+           href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">附加内容</a>
         <%
             }
         %>
@@ -178,7 +201,7 @@ for (int i = 2; i < coverUrls.size(); i++) {
             <div class="game_item">
                 <div class="game_top">
                     <div class="game_img">
-                        <img src="${pageContext.request.contextPath}<%= dlc.getCoverUrls().get(0) %>">
+                        <img src="${pageContext.request.contextPath}<%= dlc.getCoverUrls().get(2) %>">
                     </div>
                     <div class="game_info">
                         <div class="game_info_desc">
@@ -205,7 +228,7 @@ for (int i = 2; i < coverUrls.size(); i++) {
             %>
         </div>
         <div class="game_list_more">
-            <a href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= detailVo.getGame().getTitle() %>">查看更多</a>
+            <a href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">查看更多</a>
         </div>
         <%
             }
@@ -240,12 +263,46 @@ for (int i = 2; i < coverUrls.size(); i++) {
                 out.print(detailVo.getGame().getPrice());
             }
         %></div>
-        <button class="prolist_right_buynow">立即购买</button>
+        <%
+            if (owned) {
+        %>
+        <button class="prolist_right_buynow"><a style="color: #fff;" href="<%= downloadLink %>">立即下载</a></button>
+        <%
+        } else {
+        %>
+        <%
+            if (detailVo.isDlcDetail() && !detailVo.getGame().isOwned()) {
+        %>
+        <button class="prolist_right_buynow">必须先购买游戏本体才能购买DLC</button>
+        <%
+        } else {
+        %>
+        <button class="prolist_right_buynow">
+            <%
+                if (!detailVo.isDlcDetail()) {
+            %>
+            <a style="color: #fff;"
+               href="${pageContext.request.contextPath}/buy_now?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">立即购买</a>
+            <%
+            } else {
+            %>
+            <a style="color: #fff;"
+               href="${pageContext.request.contextPath}/buy_now?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>&dlcTitle=<%= Base64.encodeBase64URLSafeString(detailVo.getDlc().getTitle().getBytes(StandardCharsets.UTF_8)) %>">立即购买</a>
+            <%
+                }
+            %>
+        </button>
         <button class="prolist_right_addcart">加入购物车</button>
         <button class="prolist_right_yuanwang">
             <img src="${pageContext.request.contextPath}/app/assets/images/detail/addto.png">
             添至愿望清单
         </button>
+        <%
+            }
+        %>
+        <%
+            }
+        %>
         <div class="prolist_right_list">
             <div class="prolist_right_item">
                 <div class="prolist_right_list1">

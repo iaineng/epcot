@@ -3,15 +3,9 @@ package team.ape.epcot.service;
 import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import team.ape.epcot.dao.UserDao;
-import team.ape.epcot.dao.UserGameAssetDao;
-import team.ape.epcot.dao.UserGameDlcAssetDao;
-import team.ape.epcot.dao.UserTokenDao;
+import team.ape.epcot.dao.*;
 import team.ape.epcot.dto.UserSignUpParameterDto;
-import team.ape.epcot.po.UserGameAssetPo;
-import team.ape.epcot.po.UserGameDlcAssetPo;
-import team.ape.epcot.po.UserPo;
-import team.ape.epcot.po.UserTokenPo;
+import team.ape.epcot.po.*;
 import team.ape.epcot.vo.UserSignInResultVo;
 import team.ape.epcot.vo.UserSignUpResultVo;
 import team.ape.epcot.entity.UserVoEntity;
@@ -29,6 +23,20 @@ public class UserService extends Service {
     private final UserTokenDao userTokenDao = new UserTokenDao();
     private final UserGameAssetDao userGameAssetDao = new UserGameAssetDao();
     private final UserGameDlcAssetDao userGameDlcAssetDao = new UserGameDlcAssetDao();
+
+    private UserPo getUserPoByToken(String token) throws SQLException {
+        UserTokenPo userTokenPo = userTokenDao.getByToken(token);
+        if (userTokenPo == null) {
+            return null;
+        }
+        if (userTokenPo.getExpiredAt().before(new Date())) {
+            return null;
+        }
+        if (userTokenPo.isDisabled()) {
+            return null;
+        }
+        return userDao.getById(userTokenPo.getUserId());
+    }
 
     @SneakyThrows({ParseException.class})
     public UserSignUpResultVo signUp(UserSignUpParameterDto param) throws SQLException {
@@ -104,18 +112,7 @@ public class UserService extends Service {
     }
 
     public UserVoEntity getUser(String token) throws SQLException {
-        UserTokenPo userTokenPo = userTokenDao.getByToken(token);
-        if (userTokenPo == null) {
-            return null;
-        }
-        if (userTokenPo.getExpiredAt().before(new Date())) {
-            return null;
-        }
-        if (userTokenPo.isDisabled()) {
-            return null;
-        }
-
-        UserPo userPo = userDao.getById(userTokenPo.getUserId());
+        UserPo userPo = getUserPoByToken(token);
         if (userPo == null) {
             return null;
         }
@@ -131,8 +128,8 @@ public class UserService extends Service {
         vo.setNickname(userPo.getNickname());
         vo.setEmail(userPo.getEmail());
         vo.setAddress(userPo.getAddress());
-        vo.setOwnedDlcIds(ownedGameIds);
-        vo.setOwnedGameIds(ownedGameDlcIds);
+        vo.setOwnedGameIds(ownedGameIds);
+        vo.setOwnedDlcIds(ownedGameDlcIds);
 
         return vo;
     }

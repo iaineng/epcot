@@ -541,7 +541,7 @@
                                                 </select>
                                                 <div class="control-label1">偏好的通讯语言 *</div>
 
-                                                <p class="Email-Language">请选择您偏好的来自 Epic Games
+                                                <p class="Email-Language">请选择您偏好的来自 Epcot
                                                     的电子邮件使用的语言。</p>
                                             </div>
                                         </div>
@@ -701,7 +701,7 @@
                                 <p class="title">删除账户</p>
                                 <div class="row">
                                     <p class="title-details col-lg-7">
-                                        <span class="text-gray-500">点击“请求账户删除”开始永久删除您的 Epic Games 账户，包括所有个人信息、购买内容、游戏进度、游戏中内容、Unreal（虚幻）项目和 Epic Games 钱包账户。Epic Games 账户被删除后，您的钱包余额将同样被永久删除。</span>
+                                        <span class="text-gray-500">点击“请求账户删除”开始永久删除您的 Epcot 账户，包括所有个人信息、购买内容、游戏进度、游戏中内容。</span>
                                     </p>
                                     <button type="submit" class="btn btn-save btn-primary col-lg-5 btn-danger">
                                         删除账户

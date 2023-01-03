@@ -2,19 +2,76 @@
 <%@ page import="team.ape.epcot.entity.GameVoEntity" %>
 <%@ page import="org.apache.commons.codec.binary.Base64" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="team.ape.epcot.entity.UserVoEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     BrowseVo browseVo = (BrowseVo) request.getAttribute("browseVo");
+    UserVoEntity user = (UserVoEntity) request.getAttribute("userVoEntity");
 %>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>浏览模块</title>
+    <title>浏览</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/browse/browse.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/browse/swiper.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link type="text/css" rel="stylesheet"
+          href="${pageContext.request.contextPath}/app/assets/css/discover/header.css"/>
 </head>
 <body>
-
+<header>
+    <nav id="nav">
+        <div>
+            <div class="logo">
+                <a href="${pageContext.request.contextPath}/">
+                    <img src="${pageContext.request.contextPath}/app/assets/images/icon_4096x4096.png"/>
+                </a>
+            </div>
+            <div class="true-nav">
+                <ul>
+                    <li>
+                        <a class="link active" href="javascript:void(0);">
+                            <span class="link-text">商城</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link" href="javascript:void(0);">
+                            <span class="link-text">常见问题</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link" href="javascript:void(0);">
+                            <span class="link-text">帮助</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="user-login">
+                <%
+                    if (user == null) {
+                %>
+                <a href="${pageContext.request.contextPath}/account/sign_in" class="link">
+                    <i class="bi bi-person-fill-exclamation"></i>
+                    <span>登录</span>
+                </a>
+                <%
+                } else {
+                %>
+                <a href="${pageContext.request.contextPath}/account" class="link">
+                    <i class="bi bi-person-fill"></i>
+                    <span style="text-transform: uppercase;"><%
+                        out.write(user.getNickname());
+                    %></span>
+                </a>
+                <%
+                    }
+                %>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </nav>
+</header>
 
 <div id="top" class="search w">
 
@@ -23,19 +80,17 @@
     </div>
 
     <div class="search_tab">
-        <a href="">探索</a>
+        <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="" class="on">浏览</a>
-        <a href="">新闻</a>
-        <a href="#">愿望清单</a>
-        <a href="#">购物车</a>
+        <a href="${pageContext.request.contextPath}/inventory">库存</a>
+        <a href="">愿望清单</a>
+        <a href="">购物车</a>
     </div>
 </div>
 
 
 <div class="categories w d-none">
-
     <div class="cat_tit">
-
         <span>受欢迎的类型</span>
         <div class="swiper_lr">
             <div class="s_left" tabindex="1">
@@ -46,10 +101,8 @@
             </div>
         </div>
     </div>
-
     <div class="cat_list swiper-container">
         <div class="swiper-wrapper">
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -60,11 +113,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c3.png"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">Rogue-Lite 游戏</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -75,11 +126,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c6.png"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">simulation-games</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -90,11 +139,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c9.jpeg"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">VR 游戏</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -105,11 +152,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c12.jpg"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">休闲游戏</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -120,11 +165,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c15.jpeg"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">动作游戏</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -135,11 +178,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c18.jpeg"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">单人</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -150,11 +191,9 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c21.png"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">合作游戏</div>
                 </a>
             </div>
-
             <div class="cat_item swiper-slide">
                 <a href="">
                     <div class="cat_imgs">
@@ -165,28 +204,26 @@
                         <img src="${pageContext.request.contextPath}/app/assets/images/browse/c24.jpg"
                              class="cat_img_right">
                     </div>
-
                     <div class="cat_name">回合制游戏</div>
                 </a>
             </div>
         </div>
     </div>
-
 </div>
 
 
 <div class="prolist w ">
     <div class="prolist_left">
         <div class="prolist_left_tit" tabindex="1">
-            显示: <span>不排序</span>
+            显示: <span class="prolist_sub_tit"></span>
             <div class="prolist_sub">
-                <a href="" class="on filter-option" data-fo-option="sort" data-fo-option-value="">不排序</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="titleAsc">按字母顺序</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="titleDesc">按字母倒序</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="releasedAtDesc">推出时间：由新至旧</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="releasedAtAsc">推出时间：由旧至新</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="priceDesc">价格：由高至低</a>
-                <a href="" class="filter-option" data-fo-option="sort" data-fo-option-value="priceAsc">价格：由低至高</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="">不排序</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="titleAsc">按字母顺序</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="titleDesc">按字母倒序</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="releasedAtDesc">推出时间：由新至旧</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="releasedAtAsc">推出时间：由旧至新</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="priceDesc">价格：由高至低</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="priceAsc">价格：由低至高</a>
             </div>
         </div>
         <div class="prolist_main">
@@ -194,12 +231,8 @@
                 for (GameVoEntity game : browseVo.getGames()) {
             %>
             <div class="proitem">
-                <div class="protask">添加进任务清单</div>
                 <a href="<%= request.getContextPath() + "/game/detail?title=" + Base64.encodeBase64URLSafeString(game.getTitle().getBytes(StandardCharsets.UTF_8)) %>">
                     <div class="proimg">
-                        <div class="proadd">
-                            <img src="${pageContext.request.contextPath}/app/assets/images/browse/add.png">
-                        </div>
                         <div class="proimg_bg"></div>
                         <img src="${pageContext.request.contextPath}<%= game.getCoverUrls().get(0) %>">
                     </div>
@@ -235,7 +268,7 @@
         <div class="prolist_right_tit">筛选器</div>
         <div class="prolist_right_search">
             <div class="search_input">
-                <input type="" name="" placeholder="关键词">
+                <input type="text" name="keyword" placeholder="关键词">
             </div>
         </div>
         <ul class="prolist_right_list">
@@ -243,137 +276,137 @@
                 <span>价格</span>
             </li>
             <li class="sub">
-                <div tabindex="1">
-                    <a href="">免费</a>
+                <div tabindex="1" class="filter-option" data-fo-option="price" data-fo-value="free">
+                    <a href="javascript:void(0);">免费</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">折扣</a>
+                <div tabindex="1" class="filter-option" data-fo-option="price" data-fo-value="discounting">
+                    <a href="javascript:void(0);">折扣</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">¥70.00 以下</a>
+                <div tabindex="1" class="filter-option" data-fo-option="price" data-fo-value="lowerThan70">
+                    <a href="javascript:void(0);">¥70.00 以下</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">¥140.00 以下</a>
+                <div tabindex="1" class="filter-option" data-fo-option="price" data-fo-value="lowerThan140">
+                    <a href="javascript:void(0);">¥140.00 以下</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">¥210.00 以下</a>
+                <div tabindex="1" class="filter-option" data-fo-option="price" data-fo-value="lowerThan210">
+                    <a href="javascript:void(0);">¥210.00 以下</a>
                 </div>
             </li>
             <li tabindex="1" class="fir">
                 <span>游戏类型</span>
             </li>
             <li class="sub">
-                <div tabindex="1">
-                    <a href="">策略</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="策略">
+                    <a href="javascript:void(0);">策略</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">城市建造</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="城市建造">
+                    <a href="javascript:void(0);">城市建造</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">地牢探索</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="地牢探索">
+                    <a href="javascript:void(0);">地牢探索</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">第一人称</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="第一人称">
+                    <a href="javascript:void(0);">第一人称</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">动作</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="动作">
+                    <a href="javascript:void(0);">动作</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">动作冒险</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="动作冒险">
+                    <a href="javascript:void(0);">动作冒险</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">独立</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="独立">
+                    <a href="javascript:void(0);">独立</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">多人在线战术竞技游戏</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="多人在线战术竞技游戏">
+                    <a href="javascript:void(0);">多人在线战术竞技游戏</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">复古</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="复古">
+                    <a href="javascript:void(0);">复古</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">格斗</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="格斗">
+                    <a href="javascript:void(0);">格斗</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">回合制</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="回合制">
+                    <a href="javascript:void(0);">回合制</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">角色扮演</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="角色扮演">
+                    <a href="javascript:void(0);">角色扮演</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">解密</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="解密">
+                    <a href="javascript:void(0);">解密</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">竞速</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="竞速">
+                    <a href="javascript:void(0);">竞速</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">卡牌</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="卡牌">
+                    <a href="javascript:void(0);">卡牌</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">开放世界</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="开放世界">
+                    <a href="javascript:void(0);">开放世界</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">恐怖</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="恐怖">
+                    <a href="javascript:void(0);">恐怖</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">冒险</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="冒险">
+                    <a href="javascript:void(0);">冒险</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">模拟</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="模拟">
+                    <a href="javascript:void(0);">模拟</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">派对</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="派对">
+                    <a href="javascript:void(0);">派对</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">平台游戏</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="平台游戏">
+                    <a href="javascript:void(0);">平台游戏</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">潜行</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="潜行">
+                    <a href="javascript:void(0);">潜行</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">射击</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="射击">
+                    <a href="javascript:void(0);">射击</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">生存</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="生存">
+                    <a href="javascript:void(0);">生存</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">塔防</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="塔防">
+                    <a href="javascript:void(0);">塔防</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">太空</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="太空">
+                    <a href="javascript:void(0);">太空</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">探索</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="探索">
+                    <a href="javascript:void(0);">探索</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">喜剧</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="喜剧">
+                    <a href="javascript:void(0);">喜剧</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">休闲</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="休闲">
+                    <a href="javascript:void(0);">休闲</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">叙事</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="叙事">
+                    <a href="javascript:void(0);">叙事</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">益智问答</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="益智问答">
+                    <a href="javascript:void(0);">益智问答</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">音乐</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="音乐">
+                    <a href="javascript:void(0);">音乐</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">运动</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="运动">
+                    <a href="javascript:void(0);">运动</a>
                 </div>
-                <div tabindex="1">
-                    <a href="">Rogue-lite</a>
+                <div tabindex="1" class="filter-option" data-fo-option="tags" data-fo-value="Rogue-lite">
+                    <a href="javascript:void(0);">Rogue-lite</a>
                 </div>
             </li>
             <li tabindex="1" class="fir">
                 <span>平台</span>
             </li>
             <li class="sub">
-                <div tabindex="1">
+                <div tabindex="1" class="filter-option" data-fo-option="platforms" data-fo-value="Mac OS">
                     <a href="">Mac OS</a>
                 </div>
-                <div tabindex="1">
+                <div tabindex="1" class="filter-option" data-fo-option="platforms" data-fo-value="Window">
                     <a href="">Window</a>
                 </div>
             </li>
@@ -442,21 +475,44 @@
         src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
     $('.filter-option').click(function (event) {
-        console.log(event.target);
+        if ($(event.currentTarget).hasClass('active')) {
+            startFilter($(event.currentTarget).attr('data-fo-option'), '')
+        } else {
+            startFilter($(event.currentTarget).attr('data-fo-option'), $(event.currentTarget).attr('data-fo-value'))
+        }
     })
 
-    function startFilter() {
+    $('input[name="keyword"]').keypress(function (event) {
+        if (event.keyCode === 13) {
+            startFilter('keyword', $(event.currentTarget).val())
+        }
+    })
+
+    function setFilterOption () {
+        const param = new URLSearchParams(window.location.search)
+        for (let i = 0; i < $('.filter-option').length; i++) {
+            (param.get($($('.filter-option')[i]).attr('data-fo-option')) ?? '') === $($('.filter-option')[i]).attr('data-fo-value') ? $($('.filter-option')[i]).addClass('active') : $($('.filter-option')[i]).removeClass('active')
+        }
+
+        $('.prolist_sub_tit').text($('.prolist_sub .filter-option.active').text())
+        $('input[name="keyword"]').val(param.get('keyword') ?? '')
+    }
+    setFilterOption()
+
+    function startFilter(option, value) {
         const param = new URLSearchParams(window.location.search)
         param.set('filter', '1')
+        if (value === '') {
+            param.delete(option)
+        } else {
+            param.set(option, value)
+        }
         window.location.search = '?' + param.toString()
     }
 
-    function whenSortChange(sort) {
-        return function () {
-
-        }
-    }
-
+    $('.prolist_left_tit').click(function () {
+        $('.prolist_left_tit').toggleClass('active')
+    })
     $('.proadd').hover(function () {
         $(this).closest('.proitem').find('.protask').toggle();
     })

@@ -1,8 +1,15 @@
 package team.ape.epcot.service;
 
-import team.ape.epcot.dao.*;
+import team.ape.epcot.dao.DiscountingGameDao;
+import team.ape.epcot.dao.GameDao;
+import team.ape.epcot.dao.GameDlcDao;
+import team.ape.epcot.dao.PreorderingGameDao;
 import team.ape.epcot.entity.GameVoEntity;
-import team.ape.epcot.po.*;
+import team.ape.epcot.entity.UserVoEntity;
+import team.ape.epcot.po.DiscountingGamePo;
+import team.ape.epcot.po.GameDlcPo;
+import team.ape.epcot.po.GamePo;
+import team.ape.epcot.po.PreorderingGamePo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,7 +24,7 @@ public class GameService extends Service {
     private final PreorderingGameDao preorderingGameDao = new PreorderingGameDao();
     private final GameDlcDao gameDlcDao = new GameDlcDao();
 
-    private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo) {
+    private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo, List<Long> ownedDlcIds) {
         GameVoEntity.Dlc dlc = new GameVoEntity.Dlc();
         dlc.setTitle(gameDlcPo.getTitle());
         dlc.setDescription(gameDlcPo.getDescription());
@@ -25,10 +32,15 @@ public class GameService extends Service {
         dlc.setCoverUrls(new ArrayList<>(Arrays.asList(gameDlcPo.getCoverUrls().split(","))));
         dlc.setDownloadLink(gameDlcPo.getDownloadLink());
         dlc.setReleasedAt(gameDlcPo.getReleasedAt());
+        dlc.setOwned(ownedDlcIds.contains(gameDlcPo.getId()));
         return dlc;
     }
 
-    private GameVoEntity gamePo2GameVoEntity(GamePo gamePo) throws SQLException {
+    private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo) {
+        return gameDlcPo2Dlc(gameDlcPo, new ArrayList<>());
+    }
+
+    private GameVoEntity gamePo2GameVoEntity(GamePo gamePo, List<Long> ownedGameIds, List<Long> ownedDlcIds) throws SQLException {
         GameVoEntity game = new GameVoEntity();
         game.setTitle(gamePo.getTitle());
         game.setDescription(gamePo.getDescription());
@@ -46,6 +58,7 @@ public class GameService extends Service {
         game.setDeveloper(gamePo.getDeveloper());
         game.setPublisher(gamePo.getPublisher());
         game.setReleasedAt(gamePo.getReleasedAt());
+        game.setOwned(ownedGameIds.contains(gamePo.getId()));
 
         DiscountingGamePo discountingGamePo = discountingGameDao.getByGameId(gamePo.getId());
         if (discountingGamePo != null) {
@@ -72,11 +85,15 @@ public class GameService extends Service {
         List<GameDlcPo> gameDlcPos = gameDlcDao.getsByGameId(gamePo.getId());
         List<GameVoEntity.Dlc> dlcs = new ArrayList<>();
         for (GameDlcPo gameDlcPo : gameDlcPos) {
-            dlcs.add(gameDlcPo2Dlc(gameDlcPo));
+            dlcs.add(gameDlcPo2Dlc(gameDlcPo, ownedDlcIds));
         }
         game.setDlcs(dlcs);
 
         return game;
+    }
+
+    private GameVoEntity gamePo2GameVoEntity(GamePo gamePo) throws SQLException {
+        return gamePo2GameVoEntity(gamePo, new ArrayList<>(), new ArrayList<>());
     }
 
     public List<GameVoEntity> getAllGames() throws SQLException {
@@ -90,16 +107,20 @@ public class GameService extends Service {
         return games;
     }
 
-    public GameVoEntity getGameByTitle(String title) throws SQLException {
+    public GameVoEntity getGameByTitle(String title, List<Long> ownedGameIds) throws SQLException {
         GamePo gamePo = gameDao.getByTitle(title);
         if (gamePo == null) {
             return null;
         }
 
-        return gamePo2GameVoEntity(gamePo);
+        return gamePo2GameVoEntity(gamePo, ownedGameIds, new ArrayList<>());
     }
 
-    public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle) throws SQLException {
+    public GameVoEntity getGameByTitle(String title) throws SQLException {
+        return getGameByTitle(title, new ArrayList<>());
+    }
+
+    public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle, List<Long> ownedDlcIds) throws SQLException {
         GamePo gamePo = gameDao.getByTitle(gameTitle);
         if (gamePo == null) {
             return null;
@@ -108,10 +129,27 @@ public class GameService extends Service {
         List<GameDlcPo> gameDlcPos = gameDlcDao.getsByGameId(gamePo.getId());
         for (GameDlcPo gameDlcPo : gameDlcPos) {
             if (gameDlcPo.getTitle().equals(dlcTitle)) {
-                return gameDlcPo2Dlc(gameDlcPo);
+                return gameDlcPo2Dlc(gameDlcPo, ownedDlcIds);
             }
         }
         return null;
+    }
+
+    public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle) throws SQLException {
+        return getGameDlcByGameTitleAndDlcTitle(gameTitle, dlcTitle, new ArrayList<>());
+    }
+
+    public List<GameVoEntity> getAllOwnedGames(UserVoEntity user) throws SQLException {
+        List<GamePo> gamePos = gameDao.getAll();
+
+        List<GameVoEntity> games = new ArrayList<>();
+        for (GamePo gamePo : gamePos) {
+            if (user.getOwnedGameIds().contains(gamePo.getId())) {
+                games.add(gamePo2GameVoEntity(gamePo, user.getOwnedGameIds(), user.getOwnedDlcIds()));
+            }
+        }
+
+        return games;
     }
 
     @Override

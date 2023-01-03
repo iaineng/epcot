@@ -21,7 +21,7 @@ public class BrowseController extends Controller {
 
         String keyword = param.getKeyword();
         if (keyword != null) {
-            games.removeIf(game -> !game.getTitle().contains(keyword));
+            games.removeIf(game -> !game.getTitle().toLowerCase().contains(keyword.toLowerCase()));
         }
 
         String tagsStr = param.getTags();

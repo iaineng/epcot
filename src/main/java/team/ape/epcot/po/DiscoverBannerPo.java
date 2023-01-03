@@ -12,8 +12,6 @@ public class DiscoverBannerPo {
     private String imageUrl;
     private String link;
     private int position;
-    private String title;
-    private String iconUrl;
     private Date createdAt;
     private Date deletedAt;
 }

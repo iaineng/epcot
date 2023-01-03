@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background: rgb(18, 18, 18);
+    font-size: 14px;
+}
+.w {
+    width: 1080px;
+    margin: 0 auto;
+}
+.w1 {
+    width: 1280px;
+    margin: 0 auto;
+}
+a {
+    color: #6d6d6d;
+    text-decoration: none;
+}
+.search {
+    z-index: 1000;
+    position: sticky;
+    background: rgb(18, 18, 18);
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.search_input {
+    width: 230px;
+    height: 40px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    background: url(../../images/browse/search.png) no-repeat left 10px center;
+    background-size: 20px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(32, 32, 32);
+    border-radius: 40px;
+}
+.search_input input {
+    background-color: rgb(32, 32, 32);
+    border: 0;
+    color: #fff;
+}
+.search_input input:focus {
+    outline: none;
+}
+.search_tab a {
+    margin-left: 30px;
+}
+.search_tab a.on ,.search_tab a:hover {
+    color: #fff;
+}
+
+.footer {
+    background-color: #202020;
+    padding: 20px 0;
+}
+.footer_icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer_info {
+    display: flex;
+    justify-content: space-between;
+}
+.footer_info_tit {
+    color: #6d6d6d;
+    margin: 30px 0px 5px;
+}
+.footer_info_list {
+    display: flex;
+}
+.footer_info_item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+.footer_info_item a {
+    color: #e7e7e7;
+    line-height: 28px;
+}
+.footer_info_item a:hover {
+    color: #007aff;
+}
+.footer_info_right {
+    padding-top: 30px;
+}
+
+.border-color {
+    margin: 20px 0;
+    border-top: 1px solid #6d6d6d;
+}
+.footer_txt {
+    color: #6d6d6d;
+    font-size: 12px;
+    line-height: 18px;
+    display: inline-block;
+    width: 600px;
+}
+.footer_bom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+}
+.footer_bom a {
+    font-size: 12px;
+    margin-right: 20px;
+}
+.footer_bom a:hover {
+    color: #007aff;
+}
+
+
