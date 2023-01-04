@@ -33,7 +33,7 @@
                         }
                     %></span>
                 </div>
-                <div class="mb-4">
+                <div class="mb-4 text-center">
                     <div>5秒后自动返回上次浏览页面</div>
                     <div class="mt-2">
                         <button class="btn btn-outline-light" onclick="redirect()">立即返回</button>
