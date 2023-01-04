@@ -4,6 +4,8 @@ import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import team.ape.epcot.dao.*;
+import team.ape.epcot.dto.UserAccountSetParameterDto;
+import team.ape.epcot.dto.UserSetPasswordParameterDto;
 import team.ape.epcot.dto.UserSignUpParameterDto;
 import team.ape.epcot.po.*;
 import team.ape.epcot.vo.UserSignInResultVo;
@@ -156,6 +158,33 @@ public class UserService extends Service {
         }
 
         return null;
+    }
+
+    public void setUserAccount(UserVoEntity user, UserAccountSetParameterDto param) throws SQLException {
+        UserPo userPo = userDao.getByUsername(user.getUsername());
+        if (userPo == null) {
+            return;
+        }
+
+        userPo.setNickname(param.getNickname());
+        userPo.setEmail(param.getEmail());
+
+        userDao.update(userPo);
+    }
+
+    public void setUserPassword(UserVoEntity user, UserSetPasswordParameterDto param) throws SQLException {
+        UserPo userPo = userDao.getByUsername(user.getUsername());
+        if (userPo == null) {
+            return;
+        }
+
+        if (!userPo.getPassword().equals(param.getOldPassword())) {
+            return;
+        }
+
+        userPo.setPassword(param.getNewPassword());
+
+        userDao.update(userPo);
     }
 
     @Override
