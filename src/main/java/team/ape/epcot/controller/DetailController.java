@@ -30,11 +30,11 @@ public class DetailController extends Controller {
         DetailVo detailVo = new DetailVo();
 
         List<Long> ownedGameIds = new ArrayList<>();
-        if (user.getOwnedGameIds() != null) {
+        if (user != null && user.getOwnedGameIds() != null) {
             ownedGameIds = user.getOwnedGameIds();
         }
         List<Long> ownedDlcIds = new ArrayList<>();
-        if (user.getOwnedDlcIds() != null) {
+        if (user != null && user.getOwnedDlcIds() != null) {
             ownedDlcIds = user.getOwnedDlcIds();
         }
 

@@ -217,7 +217,7 @@
         <div class="prolist_left_tit" tabindex="1">
             显示: <span class="prolist_sub_tit"></span>
             <div class="prolist_sub">
-                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="">不排序</a>
+                <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="">全部</a>
                 <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="titleAsc">按字母顺序</a>
                 <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="titleDesc">按字母倒序</a>
                 <a href="javascript:void(0);" class="filter-option" data-fo-option="sort" data-fo-value="releasedAtDesc">推出时间：由新至旧</a>

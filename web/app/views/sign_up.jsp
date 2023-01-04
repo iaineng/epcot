@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="mb-5">
-                        <button type="submit" class="btn btn-primary w-100">继续</button>
+                        <button type="submit" class="btn btn-primary w-100" onclick="onSubmitButtonClick()">继续</button>
                     </div>
                     <div class="text-center"><span style="opacity: .65;">已有 Epcot 账户？</span> <a href="${pageContext.request.contextPath}/account/sign_in" class="text-white">登录</a></div>
                 </form>
