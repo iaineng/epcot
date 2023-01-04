@@ -10,9 +10,11 @@
 %>
 <html>
 <head>
-    <title><%= detailDlcVo.getGame().getTitle() %></title>
+    <title><%= detailDlcVo.getGame().getTitle() %>
+    </title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/detail_dlc.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/detail_dlc.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/app/assets/css/detail_dlc/swiper.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link type="text/css" rel="stylesheet"
@@ -73,26 +75,27 @@
 </header>
 <div id="top" class="search w">
     <div class="search_input">
-        <input type="" name="" placeholder="探索商城">
+        <input type="text" name="" placeholder="探索商城">
     </div>
     <div class="search_tab">
         <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
         <a href="${pageContext.request.contextPath}/inventory">库存</a>
-        <a href="">愿望清单</a>
-        <a href="">购物车</a>
+        <a href="${pageContext.request.contextPath}/wishlist">愿望清单</a>
+        <a href="${pageContext.request.contextPath}/cart">购物车</a>
     </div>
 </div>
 
 <div class="tabs w">
-    <div class="tab_name"><%= detailDlcVo.getGame().getTitle() %></div>
+    <div class="tab_name"><%= detailDlcVo.getGame().getTitle() %>
+    </div>
     <div class="tab_list">
         <a href="${pageContext.request.contextPath}/game/detail?title=<%= Base64.encodeBase64URLSafeString(detailDlcVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">概览</a>
         <a href="" class="on">附加内容</a>
     </div>
 </div>
 <div class="prolist w ">
-    <div class="prolist_left" >
+    <div class="prolist_left">
         <div class="prolist_main">
             <%
                 for (GameVoEntity.Dlc dlc : detailDlcVo.getGame().getDlcs()) {
@@ -104,9 +107,11 @@
                         <img src="${pageContext.request.contextPath}<%= dlc.getCoverUrls().get(0) %>">
                     </div>
                     <div class="protype">附加内容</div>
-                    <div class="proname"><%= dlc.getTitle() %></div>
+                    <div class="proname"><%= dlc.getTitle() %>
+                    </div>
                     <div class="proprice">
-                        <div class="proxianjia">¥<%= dlc.getPrice().toString() %></div>
+                        <div class="proxianjia">¥<%= dlc.getPrice().toString() %>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -173,21 +178,22 @@
 
 
 <script src="${pageContext.request.contextPath}/app/assets/js/browse/swiper2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
-    $('.proadd').hover(function(){
+    $('.proadd').hover(function () {
         $(this).closest('.proitem').find('.protask').toggle();
     })
-    $('.fir').click(function(){
+    $('.fir').click(function () {
 
-        if($(this).next('.sub').css('display') == 'flex'){
-            $(this).next('.sub').css('display','none');
-        }else {
-            $(this).next('.sub').css('display','flex');
+        if ($(this).next('.sub').css('display') == 'flex') {
+            $(this).next('.sub').css('display', 'none');
+        } else {
+            $(this).next('.sub').css('display', 'flex');
         }
         $(this).toggleClass('focus');
     })
-    $('.sub > div').click(function(){
+    $('.sub > div').click(function () {
         $(this).toggleClass('focus');
     })
     var mySwiper = new Swiper('.swiper-container', {

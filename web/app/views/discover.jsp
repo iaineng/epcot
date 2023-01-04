@@ -81,9 +81,9 @@
     <div class="search_tab">
         <a href="" class="on">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
-        <a href="">库存</a>
-        <a href="">愿望清单</a>
-        <a href="">购物车</a>
+        <a href="${pageContext.request.contextPath}/inventory">库存</a>
+        <a href="${pageContext.request.contextPath}/wishlist">愿望清单</a>
+        <a href="${pageContext.request.contextPath}/cart">购物车</a>
     </div>
 </div>
 
