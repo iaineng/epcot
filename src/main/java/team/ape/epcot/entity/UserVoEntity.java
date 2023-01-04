@@ -16,4 +16,6 @@ public class UserVoEntity {
     private String address;
     private List<Long> ownedGameIds;
     private List<Long> ownedDlcIds;
+    private List<Long> wishlistGameIds;
+    private List<Long> cartGameIds;
 }

@@ -47,6 +47,23 @@ public abstract class Dao<T> implements AutoCloseable {
         }
     }
 
+    protected T getBy(String[] colNames, Object[] values) throws SQLException {
+        if (colNames.length != values.length) {
+            throw new IllegalArgumentException("colNames.length != values.length");
+        }
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + getTableName() + " WHERE ");
+        for (String colName : colNames) {
+            sql.append(colName).append(" = ? AND ");
+        }
+        sql.append("deleted_at IS NULL");
+        try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
+            for (int i = 0; i < values.length; i++) {
+                statement.setObject(i + 1, values[i]);
+            }
+            return extract(statement);
+        }
+    }
+
     protected List<T> getsBy(String colName, Object value) throws SQLException {
         String sql = "SELECT * FROM " + getTableName() + " WHERE " + colName + " = ? AND deleted_at IS NULL";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -154,6 +171,24 @@ public abstract class Dao<T> implements AutoCloseable {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setTimestamp(1, new Timestamp(new Date().getTime()));
             statement.setLong(2, id);
+            return statement.executeUpdate();
+        }
+    }
+
+    public int deleteBy(String[] colNames, Object[] values) throws SQLException {
+        if (colNames.length != values.length) {
+            throw new IllegalArgumentException("colNames.length != values.length");
+        }
+        StringBuilder sql = new StringBuilder("UPDATE " + getTableName() + " SET deleted_at = ? WHERE ");
+        for (String colName : colNames) {
+            sql.append(colName).append(" = ? AND ");
+        }
+        sql.delete(sql.length() - 5, sql.length());
+        try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
+            statement.setTimestamp(1, new Timestamp(new Date().getTime()));
+            for (int i = 0; i < values.length; i++) {
+                statement.setObject(i + 2, values[i]);
+            }
             return statement.executeUpdate();
         }
     }

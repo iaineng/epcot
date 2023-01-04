@@ -5,6 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.apache.commons.codec.binary.Base64" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="team.ape.epcot.util.EncoderUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     UserVoEntity user = (UserVoEntity) request.getAttribute("userVoEntity");
@@ -117,8 +118,8 @@ for (int i = 2; i < coverUrls.size(); i++) {
         <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
         <a href="${pageContext.request.contextPath}/inventory">库存</a>
-        <a href="">愿望清单</a>
-        <a href="">购物车</a>
+        <a href="${pageContext.request.contextPath}/wishlist">愿望清单</a>
+        <a href="${pageContext.request.contextPath}/cart">购物车</a>
     </div>
 </div>
 <div class="tabs w">
@@ -132,9 +133,9 @@ for (int i = 2; i < coverUrls.size(); i++) {
             if (detailVo.getGame().getDlcs().size() > 0) {
         %>
         <a class="<% if (!detailVo.isDlcDetail()) out.write("on"); %>"
-           href="${pageContext.request.contextPath}/game/detail?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">概览</a>
+           href="${pageContext.request.contextPath}/game/detail?title=<%= EncoderUtils.base64(detailVo.getGame().getTitle()) %>">概览</a>
         <a class="<% if (detailVo.isDlcDetail()) out.write("on"); %>"
-           href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">附加内容</a>
+           href="${pageContext.request.contextPath}/game/detail/dlc?title=<%= EncoderUtils.base64(detailVo.getGame().getTitle()) %>">附加内容</a>
         <%
             }
         %>
@@ -282,21 +283,54 @@ for (int i = 2; i < coverUrls.size(); i++) {
                 if (!detailVo.isDlcDetail()) {
             %>
             <a style="color: #fff;"
-               href="${pageContext.request.contextPath}/buy_now?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>">立即购买</a>
+               href="${pageContext.request.contextPath}/order/create?titles=<%= EncoderUtils.base64(detailVo.getGame().getTitle()) %>">立即购买</a>
             <%
             } else {
             %>
             <a style="color: #fff;"
-               href="${pageContext.request.contextPath}/buy_now?title=<%= Base64.encodeBase64URLSafeString(detailVo.getGame().getTitle().getBytes(StandardCharsets.UTF_8)) %>&dlcTitle=<%= Base64.encodeBase64URLSafeString(detailVo.getDlc().getTitle().getBytes(StandardCharsets.UTF_8)) %>">立即购买</a>
+               href="${pageContext.request.contextPath}/order/create?dlcTitles=<%= EncoderUtils.base64(detailVo.getDlc().getTitle()) %>">立即购买</a>
             <%
                 }
             %>
         </button>
-        <button class="prolist_right_addcart">加入购物车</button>
-        <button class="prolist_right_yuanwang">
-            <img src="${pageContext.request.contextPath}/app/assets/images/detail/addto.png">
-            添至愿望清单
+        <%
+            if (!detailVo.isDlcDetail()) {
+        %>
+        <%
+            if (!detailVo.getGame().isInCart()) {
+        %>
+        <button class="prolist_right_addcart">
+            <a style="color: #fff;"
+               href="${pageContext.request.contextPath}/cart/add?title=<%= EncoderUtils.base64(detailVo.getGame().getTitle()) %>&backUrl="
+               class="need-back-url">加入购物车</a>
         </button>
+        <%
+        } else {
+        %>
+        <button class="prolist_right_addcart">已在购物车中</button>
+        <%
+            }
+        %>
+        <button class="prolist_right_yuanwang">
+            <%
+                if (!detailVo.getGame().isInWishlist()) {
+            %>
+            <img src="${pageContext.request.contextPath}/app/assets/images/detail/addto.png">
+            <a style="color: #fff;"
+               href="${pageContext.request.contextPath}/wishlist/add?title=<%= EncoderUtils.base64(detailVo.getGame().getTitle()) %>&backUrl="
+               class="need-back-url">添至愿望清单</a>
+            <%
+            } else {
+            %>
+            <img src="${pageContext.request.contextPath}/app/assets/images/detail/gou.png">
+            已加入愿望清单
+            <%
+                }
+            %>
+        </button>
+        <%
+            }
+        %>
         <%
             }
         %>
@@ -408,12 +442,21 @@ for (int i = 2; i < coverUrls.size(); i++) {
     </div>
 </div>
 
-
+<script src="${pageContext.request.contextPath}/app/assets/js/saveHistory.js"></script>
 <script src="${pageContext.request.contextPath}/app/assets/js/browse/swiper.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>
 
 <script type="text/javascript">
+    (function () {
+        const needBackUrls = document.querySelectorAll('.need-back-url')
+        if (needBackUrls) {
+            needBackUrls.forEach(needBackUrl => {
+                needBackUrl.href += btoa(window.location.href)
+            })
+        }
+    })()
+
     function progressFn(e, perNum) {
         // perNum 为进度值
         var percent = Math.ceil((perNum / 100) * 100);

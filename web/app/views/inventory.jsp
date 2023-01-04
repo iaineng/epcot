@@ -71,23 +71,24 @@
         </div>
     </nav>
 </header>
+
 <div id="top" class="search w">
     <div class="search_input">
-        <input type="" name="" placeholder="探索商城">
+        <input type="text" name="" placeholder="探索商城">
     </div>
     <div class="search_tab">
         <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="${pageContext.request.contextPath}/browse">浏览</a>
         <a href="" class="on">库存</a>
-        <a href="">愿望清单</a>
-        <a href="">购物车</a>
+        <a href="${pageContext.request.contextPath}/wishlist">愿望清单</a>
+        <a href="${pageContext.request.contextPath}/cart">购物车</a>
     </div>
 </div>
 
 <div class="tabs w">
     <div class="tab_name">库存</div>
 </div>
-<div class="prolist w ">
+<div class="prolist w" style="margin-top: 40px;">
     <div class="prolist_left" >
         <div class="prolist_main">
             <%

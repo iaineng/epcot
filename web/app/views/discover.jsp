@@ -18,6 +18,7 @@
           href="${pageContext.request.contextPath}/app/assets/css/discover/header.css"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/discover/discover.css"/>
+    <script src="${pageContext.request.contextPath}/app/assets/js/saveHistory.js"></script>
 </head>
 <body>
 <header>

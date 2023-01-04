@@ -1,10 +1,10 @@
 package team.ape.epcot.controller;
 
-import org.apache.commons.codec.binary.Base64;
 import team.ape.epcot.dto.DetailParameterDto;
 import team.ape.epcot.dto.ParameterDtoFactory;
 import team.ape.epcot.entity.UserVoEntity;
 import team.ape.epcot.service.GameService;
+import team.ape.epcot.util.DecoderUtils;
 import team.ape.epcot.vo.DetailVo;
 
 import javax.servlet.ServletException;
@@ -12,11 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "DetailController", value = "/game/detail")
 public class DetailController extends Controller {
@@ -25,21 +21,12 @@ public class DetailController extends Controller {
         UserVoEntity user = placeUser(request);
 
         DetailParameterDto param = ParameterDtoFactory.createByHttpRequest(DetailParameterDto.class, request);
-        param.setTitle(new String(Base64.decodeBase64(URLDecoder.decode(param.getTitle(), StandardCharsets.UTF_8.name())), StandardCharsets.UTF_8));
+        param.setTitle(DecoderUtils.base64(param.getTitle()));
 
         DetailVo detailVo = new DetailVo();
 
-        List<Long> ownedGameIds = new ArrayList<>();
-        if (user != null && user.getOwnedGameIds() != null) {
-            ownedGameIds = user.getOwnedGameIds();
-        }
-        List<Long> ownedDlcIds = new ArrayList<>();
-        if (user != null && user.getOwnedDlcIds() != null) {
-            ownedDlcIds = user.getOwnedDlcIds();
-        }
-
         try (GameService service = new GameService()) {
-            detailVo.setGame(service.getGameByTitle(param.getTitle(), ownedGameIds));
+            detailVo.setGame(service.getGameByTitle(param.getTitle(), user));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -50,9 +37,9 @@ public class DetailController extends Controller {
         }
 
         if (param.getDlcTitle() != null) {
-            param.setDlcTitle(new String(Base64.decodeBase64(URLDecoder.decode(param.getDlcTitle(), StandardCharsets.UTF_8.name())), StandardCharsets.UTF_8));
+            param.setDlcTitle(DecoderUtils.base64(param.getDlcTitle()));
             try (GameService service = new GameService()) {
-                detailVo.setDlc(service.getGameDlcByGameTitleAndDlcTitle(param.getTitle(), param.getDlcTitle(), ownedDlcIds));
+                detailVo.setDlc(service.getGameDlcByGameTitleAndDlcTitle(param.getTitle(), param.getDlcTitle(), user));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

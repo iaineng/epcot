@@ -9,9 +9,10 @@ import java.util.Date;
 @Data
 public class UserCartPo {
     private long id;
+    @Col(name = "fr_user_id")
     private long userId;
-    private long goodsId;
-    private int type;
+    @Col(name = "fr_game_id")
+    private long gameId;
     private Date createdAt;
     private Date deletedAt;
 }

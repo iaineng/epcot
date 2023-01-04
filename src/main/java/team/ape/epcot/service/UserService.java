@@ -23,6 +23,8 @@ public class UserService extends Service {
     private final UserTokenDao userTokenDao = new UserTokenDao();
     private final UserGameAssetDao userGameAssetDao = new UserGameAssetDao();
     private final UserGameDlcAssetDao userGameDlcAssetDao = new UserGameDlcAssetDao();
+    private final UserWishListDao userWishListDao = new UserWishListDao();
+    private final UserCartDao userCartDao = new UserCartDao();
 
     private UserPo getUserPoByToken(String token) throws SQLException {
         UserTokenPo userTokenPo = userTokenDao.getByToken(token);
@@ -123,6 +125,12 @@ public class UserService extends Service {
         List<UserGameDlcAssetPo> userGameDlcAssetPos = userGameDlcAssetDao.getsByUserId(userPo.getId());
         List<Long> ownedGameDlcIds = userGameDlcAssetPos.stream().map(UserGameDlcAssetPo::getGameDlcId).collect(Collectors.toList());
 
+        List<UserWishListPo> userWishListPos = userWishListDao.getsByUserId(userPo.getId());
+        List<Long> wishListGameIds = userWishListPos.stream().map(UserWishListPo::getGameId).collect(Collectors.toList());
+
+        List<UserCartPo> userCartPos = userCartDao.getsByUserId(userPo.getId());
+        List<Long> cartGameIds = userCartPos.stream().map(UserCartPo::getGameId).collect(Collectors.toList());
+
         UserVoEntity vo = new UserVoEntity();
         vo.setUsername(userPo.getUsername());
         vo.setNickname(userPo.getNickname());
@@ -130,6 +138,8 @@ public class UserService extends Service {
         vo.setAddress(userPo.getAddress());
         vo.setOwnedGameIds(ownedGameIds);
         vo.setOwnedDlcIds(ownedGameDlcIds);
+        vo.setWishlistGameIds(wishListGameIds);
+        vo.setCartGameIds(cartGameIds);
 
         return vo;
     }
@@ -154,5 +164,7 @@ public class UserService extends Service {
         userTokenDao.close();
         userGameAssetDao.close();
         userGameDlcAssetDao.close();
+        userWishListDao.close();
+        userCartDao.close();
     }
 }

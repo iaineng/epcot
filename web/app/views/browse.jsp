@@ -3,6 +3,7 @@
 <%@ page import="org.apache.commons.codec.binary.Base64" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="team.ape.epcot.entity.UserVoEntity" %>
+<%@ page import="team.ape.epcot.util.EncoderUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     BrowseVo browseVo = (BrowseVo) request.getAttribute("browseVo");
@@ -74,17 +75,15 @@
 </header>
 
 <div id="top" class="search w">
-
     <div class="search_input">
         <input type="text" name="" placeholder="探索商城">
     </div>
-
     <div class="search_tab">
         <a href="${pageContext.request.contextPath}/">探索</a>
         <a href="" class="on">浏览</a>
         <a href="${pageContext.request.contextPath}/inventory">库存</a>
-        <a href="">愿望清单</a>
-        <a href="">购物车</a>
+        <a href="${pageContext.request.contextPath}/wishlist">愿望清单</a>
+        <a href="${pageContext.request.contextPath}/cart">购物车</a>
     </div>
 </div>
 
@@ -231,7 +230,7 @@
                 for (GameVoEntity game : browseVo.getGames()) {
             %>
             <div class="proitem">
-                <a href="<%= request.getContextPath() + "/game/detail?title=" + Base64.encodeBase64URLSafeString(game.getTitle().getBytes(StandardCharsets.UTF_8)) %>">
+                <a href="<%= request.getContextPath() + "/game/detail?title=" + EncoderUtils.base64(game.getTitle()) %>">
                     <div class="proimg">
                         <div class="proimg_bg"></div>
                         <img src="${pageContext.request.contextPath}<%= game.getCoverUrls().get(0) %>">
@@ -469,7 +468,7 @@
     </div>
 </div>
 
-
+<script src="${pageContext.request.contextPath}/app/assets/js/saveHistory.js"></script>
 <script src="${pageContext.request.contextPath}/app/assets/js/browse/swiper2.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/app/assets/js/browse/jquery-2.1.1.min.js"></script>

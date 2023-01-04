@@ -36,8 +36,6 @@ public class BuyNowController extends Controller {
             throw new RuntimeException(e);
         }
 
-
-
         request.getRequestDispatcher("/app/views/buy_now.jsp").forward(request, response);
     }
 

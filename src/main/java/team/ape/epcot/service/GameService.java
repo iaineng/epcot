@@ -24,7 +24,7 @@ public class GameService extends Service {
     private final PreorderingGameDao preorderingGameDao = new PreorderingGameDao();
     private final GameDlcDao gameDlcDao = new GameDlcDao();
 
-    private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo, List<Long> ownedDlcIds) {
+    private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo, UserVoEntity user) {
         GameVoEntity.Dlc dlc = new GameVoEntity.Dlc();
         dlc.setTitle(gameDlcPo.getTitle());
         dlc.setDescription(gameDlcPo.getDescription());
@@ -32,15 +32,17 @@ public class GameService extends Service {
         dlc.setCoverUrls(new ArrayList<>(Arrays.asList(gameDlcPo.getCoverUrls().split(","))));
         dlc.setDownloadLink(gameDlcPo.getDownloadLink());
         dlc.setReleasedAt(gameDlcPo.getReleasedAt());
-        dlc.setOwned(ownedDlcIds.contains(gameDlcPo.getId()));
+        if (user != null) {
+            dlc.setOwned(user.getOwnedDlcIds().contains(gameDlcPo.getId()));
+        }
         return dlc;
     }
 
     private GameVoEntity.Dlc gameDlcPo2Dlc(GameDlcPo gameDlcPo) {
-        return gameDlcPo2Dlc(gameDlcPo, new ArrayList<>());
+        return gameDlcPo2Dlc(gameDlcPo, null);
     }
 
-    private GameVoEntity gamePo2GameVoEntity(GamePo gamePo, List<Long> ownedGameIds, List<Long> ownedDlcIds) throws SQLException {
+    private GameVoEntity gamePo2GameVoEntity(GamePo gamePo, UserVoEntity user) throws SQLException {
         GameVoEntity game = new GameVoEntity();
         game.setTitle(gamePo.getTitle());
         game.setDescription(gamePo.getDescription());
@@ -58,7 +60,11 @@ public class GameService extends Service {
         game.setDeveloper(gamePo.getDeveloper());
         game.setPublisher(gamePo.getPublisher());
         game.setReleasedAt(gamePo.getReleasedAt());
-        game.setOwned(ownedGameIds.contains(gamePo.getId()));
+        if (user != null) {
+            game.setOwned(user.getOwnedGameIds().contains(gamePo.getId()));
+            game.setInWishlist(user.getWishlistGameIds().contains(gamePo.getId()));
+            game.setInCart(user.getCartGameIds().contains(gamePo.getId()));
+        }
 
         DiscountingGamePo discountingGamePo = discountingGameDao.getByGameId(gamePo.getId());
         if (discountingGamePo != null) {
@@ -85,7 +91,7 @@ public class GameService extends Service {
         List<GameDlcPo> gameDlcPos = gameDlcDao.getsByGameId(gamePo.getId());
         List<GameVoEntity.Dlc> dlcs = new ArrayList<>();
         for (GameDlcPo gameDlcPo : gameDlcPos) {
-            dlcs.add(gameDlcPo2Dlc(gameDlcPo, ownedDlcIds));
+            dlcs.add(gameDlcPo2Dlc(gameDlcPo, user));
         }
         game.setDlcs(dlcs);
 
@@ -93,7 +99,7 @@ public class GameService extends Service {
     }
 
     private GameVoEntity gamePo2GameVoEntity(GamePo gamePo) throws SQLException {
-        return gamePo2GameVoEntity(gamePo, new ArrayList<>(), new ArrayList<>());
+        return gamePo2GameVoEntity(gamePo, null);
     }
 
     public List<GameVoEntity> getAllGames() throws SQLException {
@@ -107,20 +113,20 @@ public class GameService extends Service {
         return games;
     }
 
-    public GameVoEntity getGameByTitle(String title, List<Long> ownedGameIds) throws SQLException {
+    public GameVoEntity getGameByTitle(String title, UserVoEntity user) throws SQLException {
         GamePo gamePo = gameDao.getByTitle(title);
         if (gamePo == null) {
             return null;
         }
 
-        return gamePo2GameVoEntity(gamePo, ownedGameIds, new ArrayList<>());
+        return gamePo2GameVoEntity(gamePo, user);
     }
 
     public GameVoEntity getGameByTitle(String title) throws SQLException {
-        return getGameByTitle(title, new ArrayList<>());
+        return getGameByTitle(title, null);
     }
 
-    public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle, List<Long> ownedDlcIds) throws SQLException {
+    public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle, UserVoEntity user) throws SQLException {
         GamePo gamePo = gameDao.getByTitle(gameTitle);
         if (gamePo == null) {
             return null;
@@ -129,14 +135,14 @@ public class GameService extends Service {
         List<GameDlcPo> gameDlcPos = gameDlcDao.getsByGameId(gamePo.getId());
         for (GameDlcPo gameDlcPo : gameDlcPos) {
             if (gameDlcPo.getTitle().equals(dlcTitle)) {
-                return gameDlcPo2Dlc(gameDlcPo, ownedDlcIds);
+                return gameDlcPo2Dlc(gameDlcPo, user);
             }
         }
         return null;
     }
 
     public GameVoEntity.Dlc getGameDlcByGameTitleAndDlcTitle(String gameTitle, String dlcTitle) throws SQLException {
-        return getGameDlcByGameTitleAndDlcTitle(gameTitle, dlcTitle, new ArrayList<>());
+        return getGameDlcByGameTitleAndDlcTitle(gameTitle, dlcTitle, null);
     }
 
     public List<GameVoEntity> getAllOwnedGames(UserVoEntity user) throws SQLException {
@@ -145,7 +151,33 @@ public class GameService extends Service {
         List<GameVoEntity> games = new ArrayList<>();
         for (GamePo gamePo : gamePos) {
             if (user.getOwnedGameIds().contains(gamePo.getId())) {
-                games.add(gamePo2GameVoEntity(gamePo, user.getOwnedGameIds(), user.getOwnedDlcIds()));
+                games.add(gamePo2GameVoEntity(gamePo, user));
+            }
+        }
+
+        return games;
+    }
+
+    public List<GameVoEntity> getWishlist(UserVoEntity user) throws SQLException {
+        List<GamePo> gamePos = gameDao.getAll();
+
+        List<GameVoEntity> games = new ArrayList<>();
+        for (GamePo gamePo : gamePos) {
+            if (user.getWishlistGameIds().contains(gamePo.getId())) {
+                games.add(gamePo2GameVoEntity(gamePo, user));
+            }
+        }
+
+        return games;
+    }
+
+    public List<GameVoEntity> getCart(UserVoEntity user) throws SQLException {
+        List<GamePo> gamePos = gameDao.getAll();
+
+        List<GameVoEntity> games = new ArrayList<>();
+        for (GamePo gamePo : gamePos) {
+            if (user.getCartGameIds().contains(gamePo.getId())) {
+                games.add(gamePo2GameVoEntity(gamePo, user));
             }
         }
 

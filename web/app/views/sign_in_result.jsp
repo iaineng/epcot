@@ -16,6 +16,13 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/app/assets/images/icon_256x256.png"/>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_in_result/bootstrap.min.css"/>
+    <%
+        if (userSignInResultVo.isSucceeded()) {
+    %>
+    <script src="${pageContext.request.contextPath}/app/assets/js/redirect.js"></script>
+    <%
+        }
+    %>
     <script src="${pageContext.request.contextPath}/app/assets/js/sign_in_result/bootstrap.bundle.min.js"></script>
     <link type="text/css" rel="stylesheet"
           href="${pageContext.request.contextPath}/app/assets/css/sign_in_result/sign_in_result.css"/>

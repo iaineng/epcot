@@ -12,7 +12,13 @@ public class ParameterDtoFactory {
             throw new RuntimeException(e);
         }
         request.getParameterMap().forEach((k, v) -> Arrays.stream(dtoClass.getDeclaredFields())
-                .filter(f -> f.getName().equals(k))
+                .filter(f -> {
+                    if (f.isAnnotationPresent(Param.class)) {
+                        Param param = f.getAnnotation(Param.class);
+                        return param.name().equals(k);
+                    }
+                    return f.getName().equals(k);
+                })
                 .forEach(f -> {
                     f.setAccessible(true);
                     try {

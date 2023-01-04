@@ -2,7 +2,6 @@ package team.ape.epcot.dao;
 
 import team.ape.epcot.po.UserCartPo;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,20 +10,12 @@ public class UserCartDao extends Dao<UserCartPo> {
         super(UserCartPo.class);
     }
 
-    public List<UserCartPo> getByUserId(long userId) throws SQLException {
-        String sql = "SELECT * FROM tb_user_cart WHERE fr_user_id = ? AND deleted_at IS NULL";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, userId);
-            return extractAll(statement);
-        }
+    public List<UserCartPo> getsByUserId(long userId) throws SQLException {
+        return getsBy("fr_user_id", userId);
     }
 
-    public List<UserCartPo> getByGoodsId(long goodsId) throws SQLException {
-        String sql = "SELECT * FROM tb_user_cart WHERE fr_goods_id = ? AND deleted_at IS NULL";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, goodsId);
-            return extractAll(statement);
-        }
+    public int deleteByUserIdAndGameId(long userId, long gameId) throws SQLException {
+        return deleteBy(new String[]{"fr_user_id", "fr_game_id"}, new Long[]{userId, gameId});
     }
 
     @Override

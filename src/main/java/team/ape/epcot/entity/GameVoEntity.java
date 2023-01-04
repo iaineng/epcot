@@ -51,6 +51,8 @@ public class GameVoEntity {
     private String publisher;
     private Date releasedAt;
     private boolean isOwned;
+    private boolean isInWishlist;
+    private boolean isInCart;
 
     private Discounting discounting;
 
