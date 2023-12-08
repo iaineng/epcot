@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ConnectionPool {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/db_epcot";
+    private static final String DB_URL = "jdbc:postgresql://47.108.69.152:5432/db_epcot";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String PASSWORD = "9cf9b443c5ff4253997bc0aa2c1d87aa";
     private static final int INITIAL_POOL_SIZE = 3;
     private static final int MAX_POOL_SIZE = 50;
 
@@ -36,7 +36,7 @@ public class ConnectionPool {
     }
 
     public static synchronized Connection getConnection() {
-        if (connectionPool.size() > 0) {
+        if (!connectionPool.isEmpty()) {
             usedConnections++;
             return connectionPool.remove(connectionPool.size() - 1);
         }
@@ -49,7 +49,7 @@ public class ConnectionPool {
                 return null;
             }
         }
-        while (connectionPool.size() == 0) {
+        while (connectionPool.isEmpty()) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
